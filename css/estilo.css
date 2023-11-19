@@ -1,0 +1,102 @@
+body {
+    background-color: rgb(211, 211, 211);
+    background-image: url(../data/bg.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.index-esquerda {
+    position: relative; /* Adiciona posicionamento relativo para que o pseudoelemento seja posicionado em relação a este elemento */
+    border-radius: 10px 0px 0px 10px;
+    padding-top: 7em;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: rgb(229 104 199 / 78%);
+    color: white;
+}
+
+.index-esquerda::before {
+    content: "";
+    position: absolute; /* Define posicionamento absoluto em relação ao elemento pai */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../data/bgbox.png");
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px 0px 0px 10px;
+    z-index: -1; /* Coloca o pseudoelemento atrás do conteúdo do elemento principal */
+}
+
+
+.index-direita {
+    background-color: white;
+    border-radius: 0px 10px 10px 0px;
+    padding: 80px;
+    padding-top: 11em;
+}
+
+.index-direita-main {
+    background-color: white;
+    border-radius: 10px;
+    padding: 34px;
+    padding-top: 2em;
+    margin-top: -10em;
+}
+
+.cadastro-direita {
+    background-color: white;
+    border-radius: 0px 10px 10px 0px;
+    padding: 80px;
+    padding-top: 5em;
+}
+
+.index-box {
+    min-height: 500px;
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.index-check {
+    margin-left: 3px;
+}
+
+.index-checkbox {
+    float: right;
+    margin-right: 11px;
+    margin-top: 1px;
+    font-size: 14px;
+}
+
+.index-novaconta {
+    font-size: 14px;
+    margin-top: 3em;
+    text-align: center;
+}
+
+.color-conta a {
+    color: brown;
+    text-decoration: none;
+    -webkit-text-stroke: medium;
+}
+
+.cadstroh3 {
+    font-size: 22px;
+    margin-left: -30px;
+    margin-bottom: 1em;
+}
+
+.crumb-main {
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: -8em;
+    padding-top: 10px !important;
+    padding-left: 24px !important;
+    max-height: 48px;
+}
+
+.breadcrumb-item a {
+    text-decoration: none !important;
+}
