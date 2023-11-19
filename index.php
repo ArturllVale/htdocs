@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <br>
   <br>
   <br>
+  <p>Ola mundo</p>
   <?php include(isset($_SESSION["logado"]) && $_SESSION["logado"] ? "module/main.php" : "module/login.php"); ?>
   <div id="cookieConsentPopup" style="display: none; position: fixed; bottom: 0; width: 100%; background-color: #f5f5f5; padding: 20px; text-align: center;">
     <p>Este site usa cookies para garantir que você obtenha a melhor experiência em nosso site. <button id="acceptCookiesButton">Aceitar</button></p>
