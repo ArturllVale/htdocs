@@ -1,3 +1,9 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    require_once "config/config.php";
+    cadastrar($_POST["usuario"], $_POST["senha"], $_POST["confirmarSenha"], $_POST["email"], $_POST["genero"]);
+}
+?>
 <!doctype html>
 <html lang="pt-br">
 
@@ -29,7 +35,7 @@
       </div>
       <div class="col-md-6 cadastro-direita">
         <h3 class="cadstroh3">Criar uma nova conta!</h3>
-        <form method="post" action="config/config.php">
+        <form method="post" action="cadastro.php">
           <!-- Usuário -->
           <div class="mb-3">
             <div class="input-group">

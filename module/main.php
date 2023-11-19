@@ -13,7 +13,7 @@
 <body>
   <div class="container">
     <div class="row index-box">
-      <?php include('menu.php'); ?>
+      <?php include('module/menu.php'); ?>
       <div class="col-md-12 index-direita-main">
         <h2>Bem vindo <?php echo $_SESSION["usuario"]; ?>!</h2>
         <ul>
