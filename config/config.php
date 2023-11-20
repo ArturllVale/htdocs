@@ -5,6 +5,9 @@ define('DB_PASSWORD', 'ragnarok');      // Senha do Banco de dados
 define('DB_NAME', 'ragnarok');          // Nome do Banco de dados
 
 define('SITE_TITLE', 'Lumen Flux');     // Título do Site
+define('ENVIO_DISCORD_ATIVADO', true);  // Defina como true para ativar ou false para desativar
+                                        // o envio de Mensagem de nova conta no Servidor do Discord.
+define('DISCORD_WEBHOOK_URL', 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_TOKEN');
 
 function conectarBanco() {
     $conexao = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -90,6 +93,29 @@ function verificar_login($usuario, $senha, $salvarUsuario) {
     }
 }
 
+function enviarMensagemDiscord($mensagem) {
+    if (defined('ENVIO_DISCORD_ATIVADO') && ENVIO_DISCORD_ATIVADO) {
+    $webhookURL = DISCORD_WEBHOOK_URL;
+
+    $data = array(
+        "content" => $mensagem
+    );
+
+    $ch = curl_init($webhookURL);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+    ));
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return $result;
+}
+}
+
 function logSecurityEvent($username, $ipAddress, $action) {
     $conexao = conectarBanco();
 
@@ -131,6 +157,10 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("ssss", $usuario, $hashedPassword, $email, $genero);
     $stmt->execute();
+
+    // Enviar mensagem para o servidor do Discord
+    $mensagemDiscord = "Oba, agora temos uma nova conta criada! Total de contas: " . obterTotalContas();
+    enviarMensagemDiscord($mensagemDiscord);
 
     exibirAlerta('Cadastro realizado com sucesso!');
 }
