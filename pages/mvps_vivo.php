@@ -6,3 +6,4 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
     exit();
 }
 ?>
+<h2>MVPs Vivos</h2>
