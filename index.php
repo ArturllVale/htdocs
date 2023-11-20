@@ -1,7 +1,5 @@
 <?php
-// index.php
 session_start();
-
 include_once("config/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -14,10 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php");
         exit();
     } else {
-        echo "<script>
-                alert('Falha no login. Tente novamente.');
-                window.location.href='index.php';
-              </script>";
+        $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
+        header("Location: index.php");
+        exit();
     }
 }
 ?>
@@ -37,10 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <br>
   <br>
-  <?php include(isset($_SESSION["logado"]) && $_SESSION["logado"] ? "module/main.php" : "module/login.php"); ?>
+  <?php 
+    if (isset($_SESSION["logado"]) && $_SESSION["logado"]) {
+        include "module/main.php";
+    } else {
+        include "module/login.php";
+    }
+  ?>
   <div id="cookieConsentPopup" style="display: none; position: fixed; bottom: 0; width: 100%; background-color: #f5f5f5; padding: 20px; text-align: center;">
     <p>Este site usa cookies para garantir que você obtenha a melhor experiência em nosso site. <button id="acceptCookiesButton">Aceitar</button></p>
 </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   
 </body>
