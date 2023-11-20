@@ -16,14 +16,8 @@
       <?php include('module/menu.php'); ?>
       <div class="col-md-12 index-direita-main">
         <h2>Bem vindo <?php echo $_SESSION["usuario"]; ?>!</h2>
-        <ul>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Integer semper dui diam, eu euismod augue iaculis et.
-            Nullam ante justo, faucibus eget fringilla a, maximus ut orci.
-            Nulla justo lacus, tincidunt sed tempus ac, interdum at purus.
-            Proin accumsan dictum tellus eu rutrum. Pellentesque sed dapibus nisi.
-            Suspendisse tristique sodales ultrices. Donec nec ultrices lorem.</p>
-        </ul>
+        <widgetbot class="discord-bot" server="1067843290197667940" channel="1080887289321885737" width="860" height="500"></widgetbot>
+        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
       </div>
     </div>
   </div>

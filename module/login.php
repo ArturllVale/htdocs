@@ -18,7 +18,7 @@
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
                     <input type="text" class="form-control" placeholder="Usuário" name="usuario" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo isset($_COOKIE["usuario"]) ? $_COOKIE["usuario"] : ""; ?>">
                 </div>
-                <div class="input-group mb-1">
+                <div class="input-group mb-2">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
                     <input type="password" class="form-control" placeholder="Senha" name="senha" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
