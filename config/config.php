@@ -9,23 +9,30 @@ define('ENVIO_DISCORD_ATIVADO', true);  // Defina como true para ativar ou false
                                         // o envio de Mensagem de nova conta no Servidor do Discord.
 define('DISCORD_WEBHOOK_URL', 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_TOKEN');
 
+// Daqui pra baixo, só mexa se realmente souber o que está fazendo
 function conectarBanco() {
+    // Estabelece uma conexão com o banco de dados
     $conexao = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
+    // Verifica se houve falha na conexão
     if ($conexao->connect_error) {
+        // Encerra a execução do script e exibe uma mensagem de falha
         die("Falha na conexão. Por favor, tente novamente mais tarde.");
     }
 
+    // Retorna a conexão estabelecida
     return $conexao;
 }
 
 function iniciarSessao() {
+    // Inicia a sessão se ainda não estiver iniciada
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
 }
 
 function exibirAlerta($mensagem) {
+    // Exibe um alerta com a mensagem fornecida e redireciona para a página inicial
     echo "<script>
             alert('$mensagem');
             window.location.href='index.php';
@@ -53,15 +60,23 @@ function verificar_login($usuario, $senha, $salvarUsuario) {
         return false;
     }
 
+    // Preparação e execução de uma consulta SQL para verificar se o usuário existe no banco de dados
+    // Utiliza um comando preparado para evitar injeção de SQL
+    // O parâmetro 's' indica que é uma string (userid)
+    // O resultado é armazenado em $resultado para posterior verificação
     $sql = "SELECT * FROM login WHERE userid = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("s", $usuario);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
+    // Verifica se a consulta retornou algum resultado (usuário encontrado)
     if ($resultado->num_rows > 0) {
+        // Obtém os dados do usuário encontrado
         $usuario = $resultado->fetch_assoc();
+        // Verifica se a senha fornecida corresponde à senha armazenada no banco de dados
         if (password_verify($senha, $usuario["user_pass"])) {
+            // Define as variáveis de sessão indicando que o usuário está logado
             $_SESSION["logado"] = true;
             $_SESSION["usuario"] = $usuario["userid"];
 
@@ -101,6 +116,8 @@ function enviarMensagemDiscord($mensagem) {
         "content" => $mensagem
     );
 
+    // Configuração da requisição cURL para enviar mensagem para o webhook do Discord
+    // Utiliza o método POST, envia os dados em formato JSON, recebe a resposta e define o cabeçalho como 'Content-Type: application/json'
     $ch = curl_init($webhookURL);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
@@ -119,6 +136,8 @@ function enviarMensagemDiscord($mensagem) {
 function logSecurityEvent($username, $ipAddress, $action) {
     $conexao = conectarBanco();
 
+    // Inserção de registro no log de segurança
+    // Insere informações como nome de usuário, endereço IP, timestamp e ação realizada
     $sql = "INSERT INTO security_log (username, ip_address, timestamp, action) VALUES (?, ?, NOW(), ?)";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("sss", $username, $ipAddress, $action);
@@ -133,11 +152,14 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
 
     $conexao = conectarBanco();
 
+    // Verificação do comprimento mínimo do usuário e da senha
+    // Se o usuário ou a senha tiver menos de 4 caracteres, exibe um alerta e interrompe o processo de cadastro
     if (strlen($usuario) < 4 || strlen($senha) < 4) {
         exibirAlerta('O usuário e a senha devem ter pelo menos 4 dígitos.');
         return;
     }
 
+    // Consulta ao banco de dados para verificar se o usuário ou o email já existem
     $sql = "SELECT * FROM login WHERE userid = ? OR email = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("ss", $usuario, $email);
@@ -149,10 +171,13 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
         return;
     }
 
+    // Converte o gênero para o formato esperado pelo banco de dados (M para homem, S para mulher)
     $genero = ($genero == "homem") ? "M" : "S";
 
+    // Geração de um hash seguro da senha utilizando o algoritmo padrão do PHP
     $hashedPassword = password_hash($senha, PASSWORD_DEFAULT);
 
+    // Executa a instrução SQL para inserir um novo usuário na tabela 'login'
     $sql = "INSERT INTO login (userid, user_pass, email, sex, group_id) VALUES (?, ?, ?, ?, 0)";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("ssss", $usuario, $hashedPassword, $email, $genero);
