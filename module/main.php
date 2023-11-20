@@ -16,6 +16,13 @@
             <?php include('module/menu.php'); ?>
             <div class="col-md-12 index-direita-main">
                 <?php
+                // Verifica se o usuário está logado
+                if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
+                    // Se não estiver logado, redireciona para a página de login
+                    header("Location: index.php");
+                    exit();
+                }
+
                 // Verifica qual item do menu está ativo
                 if (isset($_GET['page'])) {
                     $page = $_GET['page'];
@@ -33,5 +40,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
+
 
 </html>
