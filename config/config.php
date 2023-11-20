@@ -1,12 +1,36 @@
 <?php
-// config.php
-function verificar_login($usuario, $senha, $salvarUsuario) {
-    // Conecte-se ao seu banco de dados aqui
-    $conexao = new mysqli('localhost', 'ragnarok', 'ragnarok', 'ragnarok');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'ragnarok');
+define('DB_PASSWORD', 'ragnarok');
+define('DB_NAME', 'ragnarok');
+
+function conectarBanco() {
+    $conexao = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
     if ($conexao->connect_error) {
-        die("Falha na conexão: " . $conexao->connect_error);
+        die("Falha na conexão. Por favor, tente novamente mais tarde.");
     }
+
+    return $conexao;
+}
+
+function iniciarSessao() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+
+function exibirAlerta($mensagem) {
+    echo "<script>
+            alert('$mensagem');
+            window.location.href='index.php';
+          </script>";
+}
+
+function verificar_login($usuario, $senha, $salvarUsuario) {
+    iniciarSessao();
+
+    $conexao = conectarBanco();
 
     $sql = "SELECT * FROM login WHERE userid = ?";
     $stmt = $conexao->prepare($sql);
@@ -15,58 +39,36 @@ function verificar_login($usuario, $senha, $salvarUsuario) {
     $resultado = $stmt->get_result();
 
     if ($resultado->num_rows > 0) {
-        // O usuário existe, agora verifique a senha
         $usuario = $resultado->fetch_assoc();
-        if ($senha == $usuario["user_pass"]) {
-            // A senha está correta, inicie a sessão
-            if(session_status() !== PHP_SESSION_ACTIVE) {
-                session_start();
-            }
+        if (password_verify($senha, $usuario["user_pass"])) {
             $_SESSION["logado"] = true;
             $_SESSION["usuario"] = $usuario["userid"];
 
-            // Se a caixa "Salvar Usuário?" estiver marcada, defina um cookie para o nome de usuário
             if ($salvarUsuario) {
-                setcookie("usuario", $usuario["userid"], time() + (86400 * 30), "/"); // 86400 = 1 dia
+                setcookie("usuario", $usuario["userid"], time() + (86400 * 30), "/");
             }
 
             return true;
         } else {
-            // A senha está incorreta
-            echo "<script>
-                    alert('Senha incorreta. Tente novamente.');
-                    window.location.href='index.php';
-                  </script>";
+            exibirAlerta('Usuário ou Senha incorretos. Tente novamente!');
             return false;
         }
     } else {
-        // O usuário não existe
-        echo "<script>
-                alert('Usuário inexistente. Tente novamente.');
-                window.location.href='index.php';
-              </script>";
+        exibirAlerta('Usuário ou Senha incorretos. Tente novamente!');
         return false;
     }
 }
 
 function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
-    // Conecte-se ao seu banco de dados aqui
-    $conexao = new mysqli('localhost', 'ragnarok', 'ragnarok', 'ragnarok');
+    iniciarSessao();
 
-    if ($conexao->connect_error) {
-        die("Falha na conexão: " . $conexao->connect_error);
-    }
+    $conexao = conectarBanco();
 
-    // Verifique se o usuário e a senha têm pelo menos 4 dígitos
     if (strlen($usuario) < 4 || strlen($senha) < 4) {
-        echo "<script>
-                alert('O usuário e a senha devem ter pelo menos 4 dígitos.');
-                window.location.href='cadastro.php';
-              </script>";
+        exibirAlerta('O usuário e a senha devem ter pelo menos 4 dígitos.');
         return;
     }
 
-    // Verifique se o usuário ou o email já existem
     $sql = "SELECT * FROM login WHERE userid = ? OR email = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("ss", $usuario, $email);
@@ -74,26 +76,20 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
     $resultado = $stmt->get_result();
 
     if ($resultado->num_rows > 0) {
-        echo "<script>
-                alert('O usuário ou o email já existem.');
-                window.location.href='cadastro.php';
-              </script>";
+        exibirAlerta('O usuário ou o email já existem.');
         return;
     }
 
-    // Converta o gênero para o formato esperado pelo banco de dados
     $genero = ($genero == "homem") ? "M" : "S";
 
-    // Insira no banco de dados
+    $hashedPassword = password_hash($senha, PASSWORD_DEFAULT);
+
     $sql = "INSERT INTO login (userid, user_pass, email, sex, group_id) VALUES (?, ?, ?, ?, 0)";
     $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("ssss", $usuario, $senha, $email, $genero);
+    $stmt->bind_param("ssss", $usuario, $hashedPassword, $email, $genero);
     $stmt->execute();
 
-    echo "<script>
-            alert('Cadastro realizado com sucesso!');
-            window.location.href='index.php';
-          </script>";
+    exibirAlerta('Cadastro realizado com sucesso!');
 }
 
 ?>
