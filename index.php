@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("config/config.php");
+include_once("config/includes.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST["usuario"];
