@@ -147,6 +147,20 @@ function logSecurityEvent($username, $ipAddress, $action) {
     $conexao->close();
 }
 
+function obterTotalContas() {
+    $conexao = conectarBanco();
+
+    $sql = "SELECT COUNT(*) as total FROM login";
+    $resultado = $conexao->query($sql);
+    
+    if ($resultado) {
+        $total = $resultado->fetch_assoc()['total'];
+        return $total;
+    } else {
+        return 0;
+    }
+}
+
 function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
     iniciarSessao();
 
