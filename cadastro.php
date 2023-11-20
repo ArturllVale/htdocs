@@ -1,9 +1,34 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Inclua o arquivo de configuração
     require_once "config/config.php";
-    cadastrar($_POST["usuario"], $_POST["senha"], $_POST["confirmarSenha"], $_POST["email"], $_POST["genero"]);
+
+    // Obtenha os dados do formulário
+    $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "";
+    $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
+    $confirmarSenha = isset($_POST["confirmarSenha"]) ? $_POST["confirmarSenha"] : "";
+    $email = isset($_POST["email"]) ? $_POST["email"] : "";
+    $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
+
+    // Validar os dados (exemplo de validação básica)
+    if (empty($usuario) || empty($senha) || empty($confirmarSenha) || empty($email) || empty($genero)) {
+        // Tratar erro de dados incompletos
+        echo "Preencha todos os campos do formulário.";
+        exit();
+    }
+
+    // Verificar se as senhas coincidem
+    if ($senha !== $confirmarSenha) {
+        // Tratar erro de senhas não coincidentes
+        echo "As senhas não coincidem. Tente novamente.";
+        exit();
+    }
+
+    // Chamar a função cadastrar
+    cadastrar($usuario, $senha, $confirmarSenha, $email, $genero);
 }
 ?>
+
 <!doctype html>
 <html lang="pt-br">
 
