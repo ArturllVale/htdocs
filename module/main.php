@@ -11,17 +11,27 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="row index-box">
-      <?php include('module/menu.php'); ?>
-      <div class="col-md-12 index-direita-main">
-        <h2>Bem vindo <?php echo $_SESSION["usuario"]; ?>!</h2>
-        <widgetbot class="discord-bot" server="1067843290197667940" channel="1080887289321885737" width="860" height="500"></widgetbot>
-        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
-      </div>
+    <div class="container">
+        <div class="row index-box">
+            <?php include('module/menu.php'); ?>
+            <div class="col-md-12 index-direita-main">
+                <?php
+                // Verifica qual item do menu está ativo
+                if (isset($_GET['page'])) {
+                    $page = $_GET['page'];
+                    // Inclui dinamicamente o conteúdo correspondente à seção do menu
+                    include('pages/' . $page . '.php');
+                } else {
+                    // Se nenhum item do menu estiver ativo, exibe um conteúdo padrão
+                    echo '<h2>Bem-vindo ' . $_SESSION["usuario"] . '!</h2>';
+                    echo '<widgetbot class="discord-bot" server="1067843290197667940" channel="1080887289321885737" width="860" height="500"></widgetbot>';
+                    echo '<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>';
+                }
+                ?>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>
