@@ -28,6 +28,35 @@ function exibirAlerta($mensagem) {
           </script>";
 }
 
+function getLastLoginAttemptTime($usuario, $conexao) {
+    $sql = "SELECT timestamp FROM security_log WHERE username = ? ORDER BY timestamp DESC LIMIT 1";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows > 0) {
+        $row = $resultado->fetch_assoc();
+        return $row['timestamp'];
+    } else {
+        return null;
+    }
+}
+
+function resetLoginAttempts($usuario, $conexao) {
+    $sql = "UPDATE security_log SET attempts = 0 WHERE username = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+}
+
+function increaseLoginAttempts($usuario, $conexao) {
+    $sql = "UPDATE security_log SET attempts = attempts + 1 WHERE username = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+}
+
 function verificar_login($usuario, $senha, $salvarUsuario) {
     iniciarSessao();
 
@@ -64,8 +93,8 @@ function verificar_login($usuario, $senha, $salvarUsuario) {
         // Obtém os dados do usuário encontrado
         $usuario = $resultado->fetch_assoc();
         // Verifica se a senha fornecida corresponde à senha armazenada no banco de dados
-        if (password_verify($senha, $usuario["user_pass"])) {
-            // Define as variáveis de sessão indicando que o usuário está logado
+        if ($senha == $usuario["user_pass"]) {
+            // A senha está correta, inicie a sessão
             $_SESSION["logado"] = true;
             $_SESSION["usuario"] = $usuario["userid"];
 
@@ -178,13 +207,10 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
     // Converte o gênero para o formato esperado pelo banco de dados (M para homem, S para mulher)
     $genero = ($genero == "homem") ? "M" : "S";
 
-    // Geração de um hash seguro da senha utilizando o algoritmo padrão do PHP
-    $hashedPassword = password_hash($senha, PASSWORD_DEFAULT);
-
     // Executa a instrução SQL para inserir um novo usuário na tabela 'login'
     $sql = "INSERT INTO login (userid, user_pass, email, sex, group_id) VALUES (?, ?, ?, ?, 0)";
     $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("ssss", $usuario, $hashedPassword, $email, $genero);
+    $stmt->bind_param("ssss", $usuario, $senha, $email, $genero);
     $stmt->execute();
 
     if (defined('ENVIO_DISCORD_ATIVADO') && ENVIO_DISCORD_ATIVADO) {

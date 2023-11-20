@@ -15,7 +15,7 @@
             <form action="index.php" method="post">
                 <div class="input-group mb-2">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-                    <input type="text" class="form-control" placeholder="Usuário" name="usuario" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo isset($_COOKIE["usuario"]) ? $_COOKIE["usuario"] : ""; ?>">
+                    <input type="text" class="form-control" placeholder="Usuário" name="usuario" aria-label="Username" aria-describedby="basic-addon1" id="usuarioInput">
                 </div>
                 <div class="input-group mb-2">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
@@ -25,8 +25,7 @@
                     <div class="col">
                         <div class="row">
                             <div class="col">
-                                <input class="form-check-input index-check" type="checkbox" value="" name="salvarUsuario" aria-label="Salvar Usuário?"
-                                    <?php echo isset($_COOKIE["usuario"]) ? 'checked' : ''; ?>>
+                                <input class="form-check-input index-check" type="checkbox" value="" name="salvarUsuario" aria-label="Salvar Usuário?" id="salvarUsuarioCheckbox">
                                 <p class="index-checkbox">Salvar Usuário?</p>
                             </div>
                         </div>
@@ -34,9 +33,10 @@
                     <div class="col text-end">
                         <button type="submit" class="btn btn-primary">Entrar</button>
                     </div>
-                    <p class="index-novaconta">Não possui uma conta? <span class="color-conta"><a href="../cadastro.php">Criar uma Agora!</a></span></p>
+                    <p class="index-novaconta">Não possui uma conta? <span class="color-conta"><a href="cadastro.php">Criar uma Agora!</a></span></p>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

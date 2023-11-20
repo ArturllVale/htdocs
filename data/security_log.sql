@@ -3,5 +3,6 @@ CREATE TABLE security_log (
     username VARCHAR(255),
     ip_address VARCHAR(45),
     timestamp DATETIME,
-    action VARCHAR(255)
+    action VARCHAR(255),
+    attempts INT DEFAULT 0
 );

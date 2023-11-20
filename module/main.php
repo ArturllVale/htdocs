@@ -30,7 +30,7 @@
                     include('pages/' . $page . '.php');
                 } else {
                     // Se nenhum item do menu estiver ativo, exibe um conteúdo padrão
-                    echo '<h2>Bem-vindo ' . $_SESSION["usuario"] . '!</h2>';
+                    echo '<h2>Bem-vindo <span class="orange-user">' . $_SESSION["usuario"] . '</span>!</h2>';
                     echo '<widgetbot class="discord-bot" server="1067843290197667940" channel="1080887289321885737" width="860" height="500"></widgetbot>';
                     echo '<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>';
                 }

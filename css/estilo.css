@@ -54,7 +54,7 @@ body {
 }
 
 .index-box {
-    min-height: 500px;
+    min-height: 527px;
     max-width: 880px;
     margin: 0 auto;
 }
@@ -104,4 +104,8 @@ body {
 .discord-bot {
     margin: 0;
     margin-left: -24px;
+}
+
+.orange-user {
+    color: rgb(194, 41, 41);
 }

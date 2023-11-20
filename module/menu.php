@@ -1,6 +1,7 @@
 <span class="crumb-main">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.php">Início</a></li>
             <li class="breadcrumb-item"><a href="?page=meus_personagens">Meus Personagens</a></li>
             <li class="breadcrumb-item"><a href="?page=rank_pvp">Rank PVP</a></li>
             <li class="breadcrumb-item"><a href="?page=rank_mvp">Rank MVP</a></li>
