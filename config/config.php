@@ -117,7 +117,8 @@ function enviarMensagemDiscord($mensagem) {
     );
 
     // Configuração da requisição cURL para enviar mensagem para o webhook do Discord
-    // Utiliza o método POST, envia os dados em formato JSON, recebe a resposta e define o cabeçalho como 'Content-Type: application/json'
+    // Utiliza o método POST, envia os dados em formato JSON, recebe a resposta e define 
+    // o cabeçalho como 'Content-Type: application/json'
     $ch = curl_init($webhookURL);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
