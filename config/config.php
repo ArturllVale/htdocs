@@ -4,7 +4,7 @@ define('DB_USER', 'ragnarok');          // Usuário do Banco de dados
 define('DB_PASSWORD', 'ragnarok');      // Senha do Banco de dados
 define('DB_NAME', 'ragnarok');          // Nome do Banco de dados
 
-define('SITE_TITLE', 'Lumen Flux');     // Nome do Site
+define('SITE_TITLE', 'Lumen Flux');     // Título do Site
 
 function conectarBanco() {
     $conexao = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
