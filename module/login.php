@@ -34,9 +34,14 @@
                         <button type="submit" class="btn btn-primary">Entrar</button>
                     </div>
                     <p class="index-novaconta">Não possui uma conta? <span class="color-conta"><a href="cadastro.php">Criar uma Agora!</a></span></p>
+                    <?php if (isset($_SESSION["erro_login"])) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $_SESSION["erro_login"];
+                        unset($_SESSION["erro_login"]); ?>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
