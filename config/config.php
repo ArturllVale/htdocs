@@ -183,9 +183,11 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
     $stmt->bind_param("ssss", $usuario, $hashedPassword, $email, $genero);
     $stmt->execute();
 
+    if (defined('ENVIO_DISCORD_ATIVADO') && ENVIO_DISCORD_ATIVADO) {
     // Enviar mensagem para o servidor do Discord
     $mensagemDiscord = "Oba, agora temos uma nova conta criada! Total de contas: " . obterTotalContas();
     enviarMensagemDiscord($mensagemDiscord);
+    }
 
     exibirAlerta('Cadastro realizado com sucesso!');
 }
