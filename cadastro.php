@@ -43,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <br>
   <br>
-  <br>
   <div class="container">
     <div class="row index-box">
       <div class="col-md-6 index-esquerda">

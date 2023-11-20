@@ -1,4 +1,3 @@
-<!-- menu.php -->
 <span class="crumb-main">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
