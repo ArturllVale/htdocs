@@ -1,5 +1,4 @@
 <?php
-// logout.php
 session_start();
 
 // Verificar se o usuário está logado antes de destruir a sessão

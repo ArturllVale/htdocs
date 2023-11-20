@@ -1,6 +1,5 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Inclua o arquivo de configuração
     include_once("config/includes.php");
 
     // Obtenha os dados do formulário
@@ -10,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = isset($_POST["email"]) ? $_POST["email"] : "";
     $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
 
-    // Validar os dados (exemplo de validação básica)
+    // Validar os dados
     if (empty($usuario) || empty($senha) || empty($confirmarSenha) || empty($email) || empty($genero)) {
         // Tratar erro de dados incompletos
         echo "Preencha todos os campos do formulário.";
