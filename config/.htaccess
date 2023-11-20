@@ -2,3 +2,13 @@
     Order Allow,Deny
     Deny from all
 </Files>
+
+<Files "includes.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files "functions.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
