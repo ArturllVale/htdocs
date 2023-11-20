@@ -32,6 +32,22 @@ function verificar_login($usuario, $senha, $salvarUsuario) {
 
     $conexao = conectarBanco();
 
+    // Verifique se houve mais de 3 tentativas de login nas últimas 20 minutos
+    $limiteTentativas = 3;
+    $tempoLimite = 20 * 60; // 20 minutos em segundos
+    $ultimoLogin = getLastLoginAttemptTime($usuario, $conexao);
+
+    if ($ultimoLogin !== null && time() - strtotime($ultimoLogin) < $tempoLimite) {
+        // Limite de tentativas atingido
+        echo "<script>
+                alert('Limite de tentativas excedido. Tente novamente mais tarde.');
+                window.location.href='index.php';
+              </script>";
+        // Adicione um log de tentativa malsucedida
+        logSecurityEvent($usuario, $_SERVER['REMOTE_ADDR'], 'Failed Login Attempt');
+        return false;
+    }
+
     $sql = "SELECT * FROM login WHERE userid = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("s", $usuario);
@@ -44,19 +60,44 @@ function verificar_login($usuario, $senha, $salvarUsuario) {
             $_SESSION["logado"] = true;
             $_SESSION["usuario"] = $usuario["userid"];
 
+            // Se a caixa "Salvar Usuário?" estiver marcada, defina um cookie para o nome de usuário
             if ($salvarUsuario) {
                 setcookie("usuario", $usuario["userid"], time() + (86400 * 30), "/");
             }
 
+            // Resetar as tentativas de login após um login bem-sucedido
+            resetLoginAttempts($usuario["userid"], $conexao);
+
+            // Adicione um log de sucesso
+            logSecurityEvent($usuario["userid"], $_SERVER['REMOTE_ADDR'], 'Successful Login');
+
             return true;
         } else {
+            // A senha está incorreta
             exibirAlerta('Usuário ou Senha incorretos. Tente novamente!');
+            // Adicione um log de tentativa malsucedida
+            logSecurityEvent($usuario, $_SERVER['REMOTE_ADDR'], 'Failed Login Attempt');
+            // Aumente o número de tentativas de login
+            increaseLoginAttempts($usuario, $conexao);
             return false;
         }
     } else {
+        // O usuário não existe
         exibirAlerta('Usuário ou Senha incorretos. Tente novamente!');
         return false;
     }
+}
+
+function logSecurityEvent($username, $ipAddress, $action) {
+    $conexao = conectarBanco();
+
+    $sql = "INSERT INTO security_log (username, ip_address, timestamp, action) VALUES (?, ?, NOW(), ?)";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("sss", $username, $ipAddress, $action);
+    $stmt->execute();
+
+    $stmt->close();
+    $conexao->close();
 }
 
 function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
