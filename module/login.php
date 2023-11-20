@@ -26,7 +26,8 @@
                     <div class="col">
                         <div class="row">
                             <div class="col">
-                                <input class="form-check-input index-check" type="checkbox" value="" name="salvarUsuario" aria-label="Salvar Usuário?">
+                                <input class="form-check-input index-check" type="checkbox" value="" name="salvarUsuario" aria-label="Salvar Usuário?"
+                                    <?php echo isset($_COOKIE["usuario"]) ? 'checked' : ''; ?>>
                                 <p class="index-checkbox">Salvar Usuário?</p>
                             </div>
                         </div>
