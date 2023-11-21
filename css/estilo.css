@@ -6,6 +6,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
 .index-esquerda {
     position: relative; /* Adiciona posicionamento relativo para que o pseudoelemento seja posicionado em relação a este elemento */
     border-radius: 10px 0px 0px 10px;
@@ -29,7 +30,6 @@ body {
     border-radius: 10px 0px 0px 10px;
     z-index: -1; /* Coloca o pseudoelemento atrás do conteúdo do elemento principal */
 }
-
 
 .index-direita {
     background-color: white;

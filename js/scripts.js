@@ -1,4 +1,3 @@
-// scripts.js
 function aceitarCookies() {
     var cookieKey = "aceitouCookies";
     var preferenciaAceite = "sim";
