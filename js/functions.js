@@ -10,16 +10,16 @@ window.onload = function() {
     var contentId = 'content' + btnNumber;
     var content = document.getElementById(contentId);
 
-    // Oculta todos os conteúdos
-    var allContents = document.getElementsByClassName('content');
-    for (var i = 0; i < allContents.length; i++) {
-      allContents[i].style.display = 'none';
-    }
-
     // Mostra ou oculta o conteúdo clicado
-    if (content.style.display === 'none') {
-      content.style.display = 'block';
-    } else {
+    if (content.style.display === 'block') {
       content.style.display = 'none';
+    } else {
+      // Oculta todos os conteúdos antes de mostrar o atual
+      var allContents = document.getElementsByClassName('content');
+      for (var i = 0; i < allContents.length; i++) {
+        allContents[i].style.display = 'none';
+      }
+
+      content.style.display = 'block';
     }
   }
