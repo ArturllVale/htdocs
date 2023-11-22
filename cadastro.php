@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $response = $_POST['h-captcha-response'];
   $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
   $verification = json_decode(file_get_contents($verifyURL));
-  $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
 
   if (!$verification->success) {
     // Tratar erro de hCaptcha não verificado
@@ -61,7 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="shortcut icon" href="Favicon.ico" type="image/x-icon">
   <script src='https://js.hcaptcha.com/1/api.js' async defer></script>
 </head>
-
+<? 
+ $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
+?>
 <body>
   <br>
   <br>
