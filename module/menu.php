@@ -33,7 +33,3 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
         </ol>
     </nav>
 </span>
-<script>
-    const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
-const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
-</script>
