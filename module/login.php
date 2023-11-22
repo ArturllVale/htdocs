@@ -30,11 +30,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <div class="h-captcha" data-sitekey="d599cdb7-dc4c-43da-b266-bcf11ff1a5c2"></div>
-                    </div>
                     <div class="col text-end">
                         <button type="submit" class="btn btn-primary">Entrar</button>
+                    </div>
+                    <div class="mb-3">
+                        <div class="h-captcha" data-sitekey="d599cdb7-dc4c-43da-b266-bcf11ff1a5c2"></div>
                     </div>
                     <p class="index-novaconta">Não possui uma conta? <span class="color-conta"><a href="cadastro">Criar uma Agora!</a></span></p>
                     <?php if (isset($_SESSION["erro_login"])) : ?>
