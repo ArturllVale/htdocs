@@ -4,8 +4,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   function obterChavesHCaptcha() {
     $chaves = array(
-        'sitekey' => HCAPTCHA_SITEKEY,
-        'secretkey' => HCAPTCHA_SECRETKEY
+        'sitekey' => 'd599cdb7-dc4c-43da-b266-bcf11ff1a5c2',
+        'secretkey' => 'ES_35106de31fe04cd59b71adec1ddfc139'
     );
 
     return $chaves;
