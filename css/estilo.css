@@ -143,3 +143,7 @@ body {
 .content {
     display: none;
 }
+
+h3 {
+    font-size: 20px !important;
+}
