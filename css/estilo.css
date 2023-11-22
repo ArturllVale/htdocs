@@ -11,8 +11,8 @@ body {
     position: relative; /* Adiciona posicionamento relativo para que o pseudoelemento seja posicionado em relação a este elemento */
     border-radius: 10px 0px 0px 10px;
     padding-top: 6em;
-    padding-left: 20px;
-    padding-right: 28px;
+    padding-left: 30px;
+    padding-right: 40px;
     background-color: rgb(229 104 199 / 78%);
     color: white;
 }
