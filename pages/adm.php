@@ -7,7 +7,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
 }
 ?>
 <h2>Administração do Servidor</h2>
-<button class="btn btn-success" type="button" onclick="toggleCollapse(1)">Personagens Online</button>
+<button class="btn btn-success" type="button" onclick="toggleCollapse(1)">Jogadores Online</button>
 <button class="btn btn-success" type="button" onclick="toggleCollapse(2)">Consultar Contas</button>
 <button class="btn btn-success" type="button" onclick="toggleCollapse(3)">Consultar Item</button>
 <button class="btn btn-success" type="button" onclick="toggleCollapse(4)">Resetar Ranks</button>
