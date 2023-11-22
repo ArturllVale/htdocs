@@ -106,6 +106,10 @@ body {
     display: inline-flex;
 }
 
+.crumb-main {
+    text-align: center;
+}
+
 .discord-bot {
     margin: 0;
     margin-left: -24px;
