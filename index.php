@@ -41,9 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <br>
   <?php 
     if (isset($_SESSION["logado"]) && $_SESSION["logado"]) {
-        include "module/main.php";
+        include "module/main";
     } else {
-        include "module/login.php";
+        include "module/login";
     }
   ?>
 
