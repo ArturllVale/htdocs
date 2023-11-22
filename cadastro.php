@@ -2,6 +2,18 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   include_once("config/includes.php");
 
+  // Verifique o hCaptcha
+  $secretKey = "ES_35106de31fe04cd59b71adec1ddfc139"; // Substitua com sua chave secreta do hCaptcha
+  $response = $_POST['h-captcha-response'];
+  $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
+  $verification = json_decode(file_get_contents($verifyURL));
+
+  if (!$verification->success) {
+    // Tratar erro de hCaptcha não verificado
+    echo "Erro de verificação do hCaptcha. Tente novamente.";
+    exit();
+  }
+
   // Obtenha os dados do formulário
   $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "";
   $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
@@ -41,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/estilo.css">
+  <link rel="shortcut icon" href="Favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -103,6 +116,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <label class="form-check-label" for="generoMulher">Feminino</label>
             </div>
           </div>
+          <div class="mb-3">
+      <div class="h-captcha" data-sitekey="SUA_CHAVE_SITE_DO_HCAPTCHA"></div>
+    </div>
           <div class="text-end">
             <button type="submit" class="btn btn-primary">Registrar</button>
           </div>
