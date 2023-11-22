@@ -23,6 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = isset($_POST["email"]) ? $_POST["email"] : "";
   $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
 
+  // Armazene o sitekey em uma variável PHP antes de usá-lo no HTML
+  $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
+
   // Validar os dados
   if (empty($usuario) || empty($senha) || empty($confirmarSenha) || empty($email) || empty($genero)) {
     // Tratar erro de dados incompletos
@@ -78,10 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6 cadastro-direita">
         <h3 class="cadstroh3">Criar uma nova conta!</h3>
-        <?php
-          // Armazene o sitekey em uma variável PHP antes de usá-lo no HTML
-          $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
-        ?>
         <form method="post" action="cadastro.php">
           <!-- Usuário -->
           <div class="mb-3">
