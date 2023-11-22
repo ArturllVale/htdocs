@@ -26,12 +26,12 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
   </div>
 </div>
 
-<button class="collapsible" onclick="toggleCollapse(1)">Botão 1</button>
+<button class="btn btn-primary collapsible" onclick="toggleCollapse(1)">Botão 1</button>
 <div class="content" id="content1">
   <p>Conteúdo do botão 1</p>
 </div>
 
-<button class="collapsible" onclick="toggleCollapse(2)">Botão 2</button>
+<button class="btn btn-primary collapsible" onclick="toggleCollapse(2)">Botão 2</button>
 <div class="content" id="content2">
   <p>Conteúdo do botão 2</p>
 </div>
