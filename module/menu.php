@@ -2,11 +2,12 @@
 if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
     $sexo = $_SESSION["sex"];
     $caminhoImagem = ($sexo == "M") ? '../data/male.png' : '../data/female.jpg';
+    $saudacao = ($_SESSION["sex"] == "M") ? "Bem-vindo" : "Bem-vinda";
     
     echo '<div class="img-container">';
     echo '<img src="' . $caminhoImagem . '" alt="Imagem de usuário" class="img-rounded">';
     echo '<br>';
-    echo '<p>Bem-vindo, <span class="orange-user">' . $_SESSION["usuario"] . '</span>!</p>';
+    echo '<p>' . $saudacao . ', <span class="orange-user">' . $_SESSION["usuario"] . '</span>!</p>';
     echo '</div>';
 }
 ?>
