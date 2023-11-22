@@ -61,6 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+<?php
+  // Armazene o sitekey em uma variável PHP antes de usá-lo no HTML
+  $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
+  ?>
   <br>
   <br>
   <div class="container">
@@ -121,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
           </div>
           <div class="mb-3">
-            <div class="h-captcha" data-sitekey="<?php echo obterChavesHCaptcha()['sitekey']; ?>"></div>
+          <div class="h-captcha" data-sitekey="<?php echo $sitekeyHCaptcha; ?>"></div>
           </div>
           <div class="text-end">
             <button type="submit" class="btn btn-primary">Registrar</button>
