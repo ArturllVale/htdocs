@@ -16,8 +16,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
 
 <div class="content" id="content1">
     <div class="card card-body">
-        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user
-        activates the relevant trigger.
+        <h3>Exibe uma lista de personagens online no servidor!</h3>
     </div>
 </div>
 
