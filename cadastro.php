@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
           </div>
           <div class="mb-3">
-      <div class="h-captcha" data-sitekey="SUA_CHAVE_SITE_DO_HCAPTCHA"></div>
+      <div class="h-captcha" data-sitekey="ES_35106de31fe04cd59b71adec1ddfc139"></div>
     </div>
           <div class="text-end">
             <button type="submit" class="btn btn-primary">Registrar</button>
