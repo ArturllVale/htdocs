@@ -40,6 +40,7 @@ body {
     border-radius: 0px 10px 10px 0px;
     padding: 80px;
     padding-top: 11em;
+    margin-bottom: 5em;
 }
 
 .index-direita-main {
@@ -79,7 +80,6 @@ body {
 .index-novaconta {
     font-size: 14px;
     margin-top: 3em;
-    margin-bottom: 5em;
     text-align: center;
 }
 
