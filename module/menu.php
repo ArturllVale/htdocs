@@ -11,7 +11,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
     echo '</div>';
 }
 ?>
-<span class="crumb-main center">
+<span class="crumb-main">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Início</a></li>
