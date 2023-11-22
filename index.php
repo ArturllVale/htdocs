@@ -7,15 +7,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $senha = $_POST["senha"];
   $salvarUsuario = isset($_POST["salvarUsuario"]);
 
+  // Verificar hCaptcha
+  $hCaptchaResponse = $_POST['h-captcha-response'];
+  $hCaptchaSecretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
+  $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
+  $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
+
+  if (!$hCaptchaVerification->success) {
+      // Tratar erro de hCaptcha não verificado
+      $_SESSION["erro_login"] = 'Falha no login devido ao hCaptcha. Tente novamente.';
+      header("Location: index.php");
+      exit();
+  }
+
   if (verificar_login($usuario, $senha, $salvarUsuario)) {
-    $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
-    $_SESSION["logado"] = true;
-    header("Location: index.php");
-    exit();
+      $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
+      $_SESSION["logado"] = true;
+      header("Location: index.php");
+      exit();
   } else {
-    $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
-    header("Location: index.php");
-    exit();
+      $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
+      header("Location: index.php");
+      exit();
   }
 }
 ?>
@@ -41,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/estilo.css">
+  <script src='https://js.hcaptcha.com/1/api.js' async defer></script>
 </head>
 
 <body>

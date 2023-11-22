@@ -2,14 +2,6 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   include_once("config/includes.php");
 
-  function obterChavesHCaptcha() {
-    $chaves = array(
-        'secretkey' => 'ES_35106de31fe04cd59b71adec1ddfc139'
-    );
-
-    return $chaves;
- }
-
   // Verifique o hCaptcha
   $chavesHCaptcha = obterChavesHCaptcha();
   $secretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
