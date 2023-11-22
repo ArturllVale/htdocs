@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $salvarUsuario = isset($_POST["salvarUsuario"]);
 
     if (verificar_login($usuario, $senha, $salvarUsuario)) {
+        $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
         $_SESSION["logado"] = true;
         header("Location: index.php");
         exit();

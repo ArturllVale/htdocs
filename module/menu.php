@@ -8,7 +8,6 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
     echo '</div>';
     echo '<p>Bem-vindo, <span class="orange-user">' . $_SESSION["usuario"] . '</span>!</p>';
 }
-
 ?>
 <span class="crumb-main">
     <nav aria-label="breadcrumb">
