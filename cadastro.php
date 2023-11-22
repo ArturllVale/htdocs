@@ -2,6 +2,15 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   include_once("config/includes.php");
 
+  function obterChavesHCaptcha() {
+    $chaves = array(
+        'sitekey' => HCAPTCHA_SITEKEY,
+        'secretkey' => HCAPTCHA_SECRETKEY
+    );
+
+    return $chaves;
+ }
+
   // Verifique o hCaptcha
   $chavesHCaptcha = obterChavesHCaptcha();
   $secretKey = $chavesHCaptcha['secretkey'];
