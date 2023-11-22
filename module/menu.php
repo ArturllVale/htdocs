@@ -3,6 +3,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
     $sexo = $_SESSION["sex"];
     $caminhoImagem = ($sexo == "M") ? '../data/male.png' : '../data/female.jpg';
     $saudacao = ($_SESSION["sex"] == "M") ? "Bem-vindo" : "Bem-vinda";
+    $groupId = $_SESSION["usuario"];
 
     echo '<div class="img-container">';
     echo '<img src="' . $caminhoImagem . '" alt="Imagem de usuário" class="img-rounded">';
@@ -19,16 +20,12 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
             <li class="breadcrumb-item"><a href="?page=rank_pvp">Rank PVP</a></li>
             <li class="breadcrumb-item"><a href="?page=rank_mvp">Rank MVP</a></li>
             <li class="breadcrumb-item"><a href="?page=mvps_vivo">MVPs Vivo</a></li>
-            <li class="breadcrumb-item dropdown">
-                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Administração
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </li>
+            <?php
+            // Verifica se o group_id é 99
+            if (isset($_SESSION["usuario"]) && obterGroupIdDoBancoDeDados($groupId) == 99) {
+                echo '<li class="breadcrumb-item"><a href="?page=adm">Administração</a></li>';
+            }
+            ?>
             <li class="breadcrumb-item"><a href="module/logout.php">Sair</a></li>
         </ol>
     </nav>

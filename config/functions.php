@@ -242,4 +242,21 @@ function obterGeneroDoUsuario($usuario) {
     return "M"; // Neste exemplo, retorna "M" se o usuário não for encontrado.
 }
 
+function obterGroupIdDoBancoDeDados($usuario) {
+    $conexao = conectarBanco();
+
+    // Consulta ao banco de dados para obter o group_id do usuário
+    $sql = "SELECT group_id FROM login WHERE userid = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $stmt->bind_result($groupId);
+    $stmt->fetch();
+    $stmt->close();
+
+    $conexao->close();
+
+    return $groupId;
+}
+
 ?>
