@@ -39,6 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
   }
 
+  $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
+
   // Chamar a função cadastrar
   cadastrar($usuario, $senha, $confirmarSenha, $email, $genero);
 }
@@ -59,10 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="css/estilo.css">
   <link rel="shortcut icon" href="Favicon.ico" type="image/x-icon">
   <script src='https://js.hcaptcha.com/1/api.js' async defer></script>
-  <?php
-    // Armazene o sitekey em uma variável PHP antes de usá-lo no HTML
-    $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
-    ?>
 </head>
 <body>
   <br>
