@@ -42,6 +42,12 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
 
 <div class="content" id="content5">
     <div class="card card-body">
+        <h3>Gerencie Notícias na Página Inicial</h3>
+    </div>
+</div>
+
+<div class="content" id="content6">
+    <div class="card card-body">
         <h3>Bane um jogador por IP</h3>
     </div>
 </div>
