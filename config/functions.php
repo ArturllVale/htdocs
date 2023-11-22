@@ -221,4 +221,25 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
 
     exibirAlerta('Cadastro realizado com sucesso!');
 }
+
+// Função para obter o gênero do usuário com base no nome de usuário
+function obterGeneroDoUsuario($usuario) {
+    $conexao = conectarBanco();
+
+    // Consulta ao banco de dados para obter o gênero do usuário
+    $sql = "SELECT sex FROM login WHERE userid = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows > 0) {
+        $row = $resultado->fetch_assoc();
+        return $row["sex"];
+    }
+
+    // Se não encontrar o usuário, você pode retornar um valor padrão ou lançar um erro, dependendo dos requisitos do seu aplicativo.
+    return "M"; // Neste exemplo, retorna "M" se o usuário não for encontrado.
+}
+
 ?>

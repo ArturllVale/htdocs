@@ -1,3 +1,15 @@
+<?php
+if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
+    $sexo = $_SESSION["sex"];
+    $caminhoImagem = ($sexo == "M") ? '../data/male.png' : '../data/female.jpg';
+    
+    echo '<div class="img-container">';
+    echo '<img src="' . $caminhoImagem . '" alt="Imagem de usuário" class="img-rounded">';
+    echo '</div>';
+    echo '<p>Bem-vindo, <span class="orange-user">' . $_SESSION["usuario"] . '</span>!</p>';
+}
+
+?>
 <span class="crumb-main">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

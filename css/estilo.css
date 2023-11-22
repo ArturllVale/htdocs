@@ -110,3 +110,19 @@ body {
 .orange-user {
     color: rgb(194, 41, 41);
 }
+
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Altura do contêiner */
+}
+
+.img-rounded {
+    border-radius: 50%; /* Torna a imagem circular */
+    border: 2px solid #000; /* Adiciona uma borda de 2px com cor preta */
+    width: 80px; /* Ajuste a largura conforme necessário */
+    height: 80px; /* Ajuste a altura conforme necessário */
+    object-fit: cover; /* Mantém a proporção da imagem e cobre a área designada */
+}
+
