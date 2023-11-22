@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </ul>
       </div>
       <div class="col-md-6 cadastro-direita">
-        <h3 class="cadstroh3">Criar uma nova conta! 2</h3>
+        <h3 class="cadstroh3">Criar uma nova conta!</h3>
         <form method="post" action="cadastro.php">
           <!-- Usuário -->
           <div class="mb-3">
