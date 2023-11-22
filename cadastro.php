@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (!$verification->success) {
     // Tratar erro de hCaptcha não verificado
     echo "Erro de verificação do hCaptcha. Tente novamente.";
+    header("Location: cadastro.php");
     exit();
   }
 
@@ -25,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($usuario) || empty($senha) || empty($confirmarSenha) || empty($email) || empty($genero)) {
     // Tratar erro de dados incompletos
     echo "Preencha todos os campos do formulário.";
+    header("Location: cadastro.php");
     exit();
   }
 
