@@ -103,7 +103,7 @@ body {
 }
 
 .breadcrumb {
-    padding-left: 5em;
+    display: inline-flex;
 }
 
 .crumb-main {
