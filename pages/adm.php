@@ -11,7 +11,8 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
 <button class="btn btn-success" type="button" onclick="toggleCollapse(2)">Consultar Contas</button>
 <button class="btn btn-success" type="button" onclick="toggleCollapse(3)">Consultar Item</button>
 <button class="btn btn-success" type="button" onclick="toggleCollapse(4)">Resetar Ranks</button>
-<button class="btn btn-danger" type="button" onclick="toggleCollapse(5)">Ban por IP</button>
+<button class="btn btn-primary" type="button" onclick="toggleCollapse(5)">Gerênciar Notícias</button>
+<button class="btn btn-danger" type="button" onclick="toggleCollapse(6)">Ban por IP</button>
 
 
 <div class="content" id="content1">
