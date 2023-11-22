@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Verifique o hCaptcha
   $chavesHCaptcha = obterChavesHCaptcha();
-  $secretKey = $chavesHCaptcha['secretkey'];
+  $secretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
   $response = $_POST['h-captcha-response'];
   $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
   $verification = json_decode(file_get_contents($verifyURL));
