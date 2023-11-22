@@ -3,6 +3,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   include_once("config/includes.php");
 
   // Verifique o hCaptcha
+  $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
   $chavesHCaptcha = obterChavesHCaptcha();
   $secretKey = $chavesHCaptcha['secretkey'];
   $response = $_POST['h-captcha-response'];
@@ -22,9 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $confirmarSenha = isset($_POST["confirmarSenha"]) ? $_POST["confirmarSenha"] : "";
   $email = isset($_POST["email"]) ? $_POST["email"] : "";
   $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
-
-  // Armazene o sitekey em uma variável PHP antes de usá-lo no HTML
-  $sitekeyHCaptcha = obterSiteKey()['sitekey'];
+  
 
   // Validar os dados
   if (empty($usuario) || empty($senha) || empty($confirmarSenha) || empty($email) || empty($genero)) {
