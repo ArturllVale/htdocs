@@ -40,7 +40,6 @@ body {
     border-radius: 0px 10px 10px 0px;
     padding: 80px;
     padding-top: 11em;
-    margin-bottom: 5em;
 }
 
 .index-direita-main {
@@ -64,6 +63,7 @@ body {
     min-height: 527px;
     max-width: 880px;
     margin: 0 auto;
+    margin-bottom: 5em;
 }
 
 .index-check {
