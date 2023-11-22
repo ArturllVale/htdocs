@@ -245,7 +245,7 @@ function obterGeneroDoUsuario($usuario) {
 function obterGroupIdDoBancoDeDados($usuario) {
     $conexao = conectarBanco();
 
-    // Consulta ao banco de dados para obter o group_id do usuário
+    // Consulta o banco de dados para obter o group_id do usuário
     $sql = "SELECT group_id FROM login WHERE userid = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("s", $usuario);

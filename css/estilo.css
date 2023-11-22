@@ -136,3 +136,6 @@ body {
     object-fit: cover; /* Mantém a proporção da imagem e cobre a área designada */
 }
 
+.adm-red {
+    color: red;
+}

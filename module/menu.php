@@ -23,7 +23,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
             <?php
             // Verifica se o group_id é 99
             if (isset($_SESSION["usuario"]) && obterGroupIdDoBancoDeDados($groupId) == 99) {
-                echo '<li class="breadcrumb-item"><a href="?page=adm">Administração</a></li>';
+                echo '<li class="breadcrumb-item"><a href="?page=adm" class="adm-red">Administração</a></li>';
             }
             ?>
             <li class="breadcrumb-item"><a href="module/logout.php">Sair</a></li>
