@@ -1,6 +1,13 @@
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+  RewriteEngine On
+  RewriteBase /
+  
+  # Remover a extensão .php
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.php -f
+  RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+  # Redirecionar para o index.php se a página não existir
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ index.php [L]
 </IfModule>
