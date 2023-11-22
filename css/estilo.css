@@ -102,10 +102,6 @@ body {
     text-decoration: none !important;
 }
 
-.breadcrumb {
-    display: inline-flex;
-}
-
 .crumb-main {
     text-align: center;
 }
