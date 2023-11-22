@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="shortcut icon" href="Favicon.ico" type="image/x-icon">
   <script src='https://js.hcaptcha.com/1/api.js' async defer></script>
 </head>
-<? 
+<?php
  $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
 ?>
 <body>
