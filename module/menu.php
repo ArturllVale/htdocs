@@ -19,7 +19,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
             <li class="breadcrumb-item"><a href="?page=rank_pvp">Rank PVP</a></li>
             <li class="breadcrumb-item"><a href="?page=rank_mvp">Rank MVP</a></li>
             <li class="breadcrumb-item"><a href="?page=mvps_vivo">MVPs Vivo</a></li>
-            <li class="breadcrumb-item dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true">
+            <li class="breadcrumb-item dropdown-toggle" type="button" data-bs-toggle="dropdown-menu" aria-expanded="false">
               Dropdown button
             </li>
             <ul class="dropdown-menu">
