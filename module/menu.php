@@ -5,8 +5,8 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
     
     echo '<div class="img-container">';
     echo '<img src="' . $caminhoImagem . '" alt="Imagem de usuário" class="img-rounded">';
-    echo '</div>';
     echo '<p>Bem-vindo, <span class="orange-user">' . $_SESSION["usuario"] . '</span>!</p>';
+    echo '</div>';
 }
 ?>
 <span class="crumb-main">
