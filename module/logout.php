@@ -8,6 +8,6 @@ if (isset($_SESSION["logado"]) && $_SESSION["logado"]) {
 }
 
 // Redirecionar para a página de login
-header("Location: ../index.php");
+header("Location: ../index");
 exit();
 ?>
