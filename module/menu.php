@@ -20,10 +20,10 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
             <li class="breadcrumb-item"><a href="?page=rank_mvp">Rank MVP</a></li>
             <li class="breadcrumb-item"><a href="?page=mvps_vivo">MVPs Vivo</a></li>
             <li class="breadcrumb-item dropdown">
-                <a class="dropdown-toggle" href="#" role="button" id="administracaoDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Administração
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="administracaoDropdown">
+                <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Action</a></li>
                     <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -33,3 +33,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] == true) {
         </ol>
     </nav>
 </span>
+<script>
+    const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
+const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
+</script>
