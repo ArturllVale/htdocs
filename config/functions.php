@@ -259,4 +259,13 @@ function obterGroupIdDoBancoDeDados($usuario) {
     return $groupId;
 }
 
+function obterChavesHCaptcha() {
+    $chaves = array(
+        'sitekey' => HCAPTCHA_SITEKEY,
+        'secretkey' => HCAPTCHA_SECRETKEY
+    );
+
+    return $chaves;
+}
+
 ?>

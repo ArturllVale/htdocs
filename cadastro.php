@@ -3,7 +3,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   include_once("config/includes.php");
 
   // Verifique o hCaptcha
-  $secretKey = "ES_35106de31fe04cd59b71adec1ddfc139"; // Substitua com sua chave secreta do hCaptcha
+  $chavesHCaptcha = obterChavesHCaptcha();
+  $secretKey = $chavesHCaptcha['secretkey'];
   $response = $_POST['h-captcha-response'];
   $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
   $verification = json_decode(file_get_contents($verifyURL));
@@ -120,8 +121,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
           </div>
           <div class="mb-3">
-            <div class="h-captcha" data-sitekey="d599cdb7-dc4c-43da-b266-bcf11ff1a5c2"></div>
-          </div>
+      <div class="h-captcha" data-sitekey="<?php echo obterChavesHCaptcha()['sitekey']; ?>"></div>
+    </div>
           <div class="text-end">
             <button type="submit" class="btn btn-primary">Registrar</button>
           </div>
