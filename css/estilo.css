@@ -91,7 +91,7 @@ body {
 
 .crumb-main {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 0px 0px 10px 10px;
     margin-bottom: -3em;
     padding-top: 10px !important;
     padding-left: 24px !important;
@@ -112,10 +112,10 @@ body {
 }
 
 .img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px; /* Altura do contêiner */
+    text-align: center;
+    height: 100px;
+    background-color: white;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .img-rounded {
