@@ -16,34 +16,30 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
 
 <div class="content" id="content1">
     <div class="card card-body">
-        <h3>Exibe uma lista de personagens online no servidor!</h3>
+        <h3>Exibe uma lista de personagens online no servidor</h3>
     </div>
 </div>
 
 <div class="content" id="content2">
     <div class="card card-body">
-        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user
-        activates the relevant trigger.
+        <h3>Consulta informações Básicas de um jogador</h3>
     </div>
 </div>
 
 <div class="content" id="content3">
     <div class="card card-body">
-        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user
-        activates the relevant trigger.
+        <h3>Consulta informações sobre a posse de itens</h3>
     </div>
 </div>
 
 <div class="content" id="content4">
     <div class="card card-body">
-        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user
-        activates the relevant trigger.
+        <h3>Reseta os Ranks com 1 click</h3>
     </div>
 </div>
 
 <div class="content" id="content5">
     <div class="card card-body">
-        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user
-        activates the relevant trigger.
+        <h3>Bane um jogador por IP</h3>
     </div>
 </div>
