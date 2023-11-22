@@ -11,15 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("cookieConsentPopup").style.display = "block";
     }
 
-    // Salvar o nome de usuário no armazenamento local quando o formulário é enviado
-    document.querySelector("form").addEventListener("submit", function() {
-        if (salvarUsuarioCheckbox.checked) {
-            localStorage.setItem(usuarioKey, usuarioInput.value);
-        } else {
-            localStorage.removeItem(usuarioKey);
-        }
-    });
-
     // Carregar o nome de usuário do armazenamento local, se disponível
     var usuarioKey = "usuario";
     var usuarioInput = document.getElementById("usuarioInput");
@@ -28,6 +19,15 @@ document.addEventListener("DOMContentLoaded", function() {
         usuarioInput.value = localStorage.getItem(usuarioKey);
         salvarUsuarioCheckbox.checked = true;
     }
+
+    // Salvar o nome de usuário no armazenamento local quando o formulário é enviado
+    document.querySelector("form").addEventListener("submit", function() {
+        if (salvarUsuarioCheckbox.checked) {
+            localStorage.setItem(usuarioKey, usuarioInput.value);
+        } else {
+            localStorage.removeItem(usuarioKey);
+        }
+    });
 });
 
 document.getElementById("acceptCookiesButton").addEventListener("click", aceitarCookies);
