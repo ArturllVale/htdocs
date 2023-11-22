@@ -10,9 +10,9 @@ body {
 .index-esquerda {
     position: relative; /* Adiciona posicionamento relativo para que o pseudoelemento seja posicionado em relação a este elemento */
     border-radius: 10px 0px 0px 10px;
-    padding-top: 7em;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-top: 6em;
+    padding-left: 20px;
+    padding-right: 28px;
     background-color: rgb(229 104 199 / 78%);
     color: white;
 }
@@ -29,6 +29,10 @@ body {
     background-size: cover;
     border-radius: 10px 0px 0px 10px;
     z-index: -1; /* Coloca o pseudoelemento atrás do conteúdo do elemento principal */
+}
+
+.index-esquerda h2 {
+    text-align: left !important;
 }
 
 .index-direita {
