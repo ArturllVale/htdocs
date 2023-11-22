@@ -4,9 +4,9 @@ window.onload = function() {
     for (var i = 0; i < allContents.length; i++) {
       allContents[i].style.display = 'none';
     }
-};
+  };
 
-function toggleCollapse(btnNumber) {
+  function toggleCollapse(btnNumber) {
     var contentId = 'content' + btnNumber;
     var content = document.getElementById(contentId);
 
@@ -17,9 +17,9 @@ function toggleCollapse(btnNumber) {
     }
 
     // Mostra ou oculta o conteúdo clicado
-    if (content.style.display === 'block') {
-      content.style.display = 'none';
-    } else {
+    if (content.style.display === 'none') {
       content.style.display = 'block';
+    } else {
+      content.style.display = 'none';
     }
-}
+  }
