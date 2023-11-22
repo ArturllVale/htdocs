@@ -113,9 +113,10 @@ body {
 
 .img-container {
     text-align: center;
-    height: 100px;
+    height: 118px;
     background-color: white;
     border-radius: 10px 10px 0px 0px;
+    padding: 10px;
 }
 
 .img-rounded {
