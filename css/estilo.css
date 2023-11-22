@@ -140,10 +140,6 @@ body {
     color: red;
 }
 
-.collapsible {
-
-  }
-
-  .content {
+.content {
     display: none;
-  }
+}
