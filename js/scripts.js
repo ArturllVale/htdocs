@@ -31,3 +31,22 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.getElementById("acceptCookiesButton").addEventListener("click", aceitarCookies);
+
+
+function toggleCollapse(btnNumber) {
+    var contentId = 'content' + btnNumber;
+    var content = document.getElementById(contentId);
+
+    // Oculta todos os conteúdos
+    var allContents = document.getElementsByClassName('content');
+    for (var i = 0; i < allContents.length; i++) {
+      allContents[i].style.display = 'none';
+    }
+
+    // Mostra ou oculta o conteúdo clicado
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
+    } else {
+      content.style.display = 'block';
+    }
+}

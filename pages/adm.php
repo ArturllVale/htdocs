@@ -25,3 +25,13 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
     Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
   </div>
 </div>
+
+<button class="collapsible" onclick="toggleCollapse(1)">Botão 1</button>
+<div class="content" id="content1">
+  <p>Conteúdo do botão 1</p>
+</div>
+
+<button class="collapsible" onclick="toggleCollapse(2)">Botão 2</button>
+<div class="content" id="content2">
+  <p>Conteúdo do botão 2</p>
+</div>
