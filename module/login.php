@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="col text-end">
-                        <button type="submit" class="btn btn-primary">Entrar</button>
+                        <button type="submit" name="submit" value="login" class="btn btn-primary">Entrar</button>
                     </div>
                     <p class="index-novaconta">Não possui uma conta? <span class="color-conta"><a href="cadastro">Criar
                                 Agora!</a></span></p>

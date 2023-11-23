@@ -2,7 +2,7 @@
 session_start();
 include_once("config/includes.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_POST['login'])) {
   $usuario = $_POST["usuario"];
   $senha = $_POST["senha"];
   $salvarUsuario = isset($_POST["salvarUsuario"]);
@@ -30,7 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: index.php");
     exit();
   }
+}
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Lógica pra função de cadastro
   // Verifique o hCaptcha
   $secretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
