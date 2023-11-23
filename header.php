@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
   // Verifica se os campos de e-mail coincidem
   if ($email !== $confirmarEmail) {
       $_SESSION["erro_recuperar_senha"] = 'Os campos de e-mail não coincidem.';
-      header("Location: recuperar_senha.php");
+      header("Location: recuperar.php");
       exit();
   }
 
@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
   $stmt->execute();
 
   // Configurações do link de recuperação
-  $linkRecuperacao = "module/recuperar.php?token=$token";
+  $linkRecuperacao = "recuperar.php?token=$token";
 
   // Envia o e-mail com o link de recuperação
   enviarLinkRecuperacao($email, $linkRecuperacao);
