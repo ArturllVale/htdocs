@@ -149,9 +149,12 @@ function enviarMensagemDiscord($mensagem)
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-        )
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json',
+            )
         );
 
         $result = curl_exec($ch);
@@ -191,7 +194,8 @@ function obterTotalContas()
     }
 }
 
-function obterEnderecoIP() {
+function obterEnderecoIP()
+{
     // Verifica se o usuário está por trás de um proxy
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         $ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -204,7 +208,8 @@ function obterEnderecoIP() {
     return $ip;
 }
 
-function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero) {
+function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero)
+{
     iniciarSessao();
 
     $conexao = conectarBanco();
@@ -288,5 +293,104 @@ function obterGroupIdDoBancoDeDados($usuario)
 
     return $groupId;
 }
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+function enviarLinkRecuperacao($email, $linkRecuperacao)
+{
+    // Instancie o objeto PHPMailer
+    $mail = new PHPMailer(true);
+
+    try {
+        // Configurações do servidor SMTP
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = SMTP_SECURE;
+        $mail->Port = SMTP_PORT;
+
+        // Configurações do e-mail
+        $mail->setFrom(EMAIL_FROM, SENDER_NAME);
+        $mail->addAddress($email);
+        $mail->Subject = 'Recuperação de Senha';
+        $mail->Body = 'Clique no link a seguir para recuperar sua senha: ' . $linkRecuperacao;
+
+        // Envia o e-mail
+        $mail->send();
+
+        echo 'E-mail enviado com sucesso!';
+    } catch (Exception $e) {
+        echo "Erro no envio do e-mail: {$mail->ErrorInfo}";
+    }
+}
+
+function recuperarSenha($email, $confirmarEmail)
+{
+    iniciarSessao();
+
+    $conexao = conectarBanco();
+
+    // Verifica se os campos de e-mail coincidem
+    if ($email !== $confirmarEmail) {
+        exibirAlerta('Os campos de e-mail não coincidem.');
+        return;
+    }
+
+    // Consulta ao banco de dados para verificar se o e-mail existe
+    $sql = "SELECT * FROM login WHERE email = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows === 0) {
+        exibirAlerta('O e-mail fornecido não está registrado.');
+        return;
+    }
+
+    // Gera um token único para a recuperação de senha
+    $token = gerarToken();
+
+    // Salva o token no banco de dados, juntamente com o e-mail e um timestamp para expiração
+    $sql = "INSERT INTO tokens_recuperacao_senha (email, token, timestamp) VALUES (?, ?, NOW())";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("ss", $email, $token);
+    $stmt->execute();
+
+    // Configurações do link de recuperação
+    $linkRecuperacao = "module/resetar.php?token=$token";
+
+    // Envia o e-mail com o link de recuperação
+    enviarLinkRecuperacao($email, $linkRecuperacao);
+
+    // Após a conclusão bem-sucedida da recuperação de senha, exibe uma mensagem adequada.
+    exibirAlerta('Um e-mail de recuperação foi enviado. Verifique sua caixa de entrada.');
+
+    // Se necessário, adicione registros de log ou outras operações aqui.
+
+    // Feche a conexão com o banco de dados.
+    $stmt->close();
+    $conexao->close();
+}
+
+
+function gerarToken()
+{
+    // Obtém uma string única baseada no tempo atual em microssegundos
+    $token = uniqid();
+
+    // Adiciona mais entropia ao token usando uma função de hash
+    $token .= hash('sha256', random_bytes(32));
+
+    return $token;
+}
+
 
 ?>
