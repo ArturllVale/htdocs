@@ -10,13 +10,13 @@ define('ENVIO_DISCORD_ATIVADO', false);     // Defina como true para ativar ou f
 define('DISCORD_WEBHOOK_URL', 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_TOKEN');
 
 // Configurações de e-mail
-define('SMTP_HOST', 'smtp.seudominio.com');
-define('SMTP_USERNAME', 'seu_email@seudominio.com');
-define('SMTP_PASSWORD', 'sua_senha');
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_USERNAME', 'hakahaybr@gmail.com');
+define('SMTP_PASSWORD', '32291143');
 define('SMTP_SECURE', 'tls');
 define('SMTP_PORT', 587);
 
 // Informações do remetente
-define('EMAIL_FROM', 'seu_email@seudominio.com');
-define('SENDER_NAME', 'Seu Nome');
+define('EMAIL_FROM', 'hakahaybr@gmail.com');
+define('SENDER_NAME', 'Lumen');
 ?>
