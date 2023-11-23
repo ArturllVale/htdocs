@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
   }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && isset($_POST['registro'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['submite'] == 'registro') {
   // Lógica pra função de cadastro
   // Verifique o hCaptcha
   $secretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';

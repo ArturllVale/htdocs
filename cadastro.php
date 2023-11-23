@@ -18,7 +18,7 @@ include "header.php";
       </div>
       <div class="col-md-6 cadastro-direita">
         <h3 class="cadstroh3">Criar uma nova conta!</h3>
-        <form method="post" action="cadastro.php">
+        <form method="post" action="cadastro.php" id="registro">
           <!-- Usuário -->
           <div class="mb-3">
             <div class="input-group">
@@ -31,7 +31,8 @@ include "header.php";
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-              <input type="password" class="form-control" id="senha_c" name="senha_c" placeholder="Crie uma senha" required>
+              <input type="password" class="form-control" id="senha_c" name="senha_c" placeholder="Crie uma senha"
+                required>
             </div>
           </div>
           <!-- Confirmar senha_c -->
@@ -64,7 +65,7 @@ include "header.php";
             <div class="h-captcha" data-sitekey="d599cdb7-dc4c-43da-b266-bcf11ff1a5c2"></div>
           </div>
           <div class="text-end">
-            <button type="submit" name="submit" value="registro" class="btn btn-primary">Registrar</button>
+            <button type="submit" name="submite" value="registro" class="btn btn-primary">Registrar</button>
           </div>
         </form>
       </div>
