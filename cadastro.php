@@ -3,7 +3,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   include_once("config/includes.php");
 
   // Verifique o hCaptcha
-  $chavesHCaptcha = obterChavesHCaptcha();
   $secretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
   $response = $_POST['h-captcha-response'];
   $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
@@ -38,8 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "As senha_cs não coincidem. Tente novamente.";
     exit();
   }
-
-  $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
 
   // Chamar a função cadastrar
   cadastrar($usuario_c, $senha_c, $confirmarsenha_c, $email, $genero);
@@ -92,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-              <input type="password" class="form-control" id="senha_c" name="senha_c" placeholder="Crie uma senha_c" required>
+              <input type="password" class="form-control" id="senha_c" name="senha_c" placeholder="Crie uma senha" required>
             </div>
           </div>
           <!-- Confirmar senha_c -->
@@ -100,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="input-group">
               <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
               <input type="password" class="form-control" id="confirmarsenha_c" name="confirmarsenha_c"
-                placeholder="Confirme sua senha_c" required>
+                placeholder="Confirme sua senha" required>
             </div>
           </div>
           <!-- Email -->
