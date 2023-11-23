@@ -180,14 +180,14 @@ function obterTotalContas() {
     }
 }
 
-function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
+function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero) {
     iniciarSessao();
 
     $conexao = conectarBanco();
 
     // Verificação do comprimento mínimo do usuário e da senha
     // Se o usuário ou a senha tiver menos de 4 caracteres, exibe um alerta e interrompe o processo de cadastro
-    if (strlen($usuario) < 4 || strlen($senha) < 4) {
+    if (strlen($usuario_c) < 4 || strlen($senha_c) < 4) {
         exibirAlerta('O usuário e a senha devem ter pelo menos 4 dígitos.');
         return;
     }
@@ -195,7 +195,7 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
     // Consulta ao banco de dados para verificar se o usuário ou o email já existem
     $sql = "SELECT * FROM login WHERE userid = ? OR email = ?";
     $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("ss", $usuario, $email);
+    $stmt->bind_param("ss", $usuario_c, $email);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
@@ -210,7 +210,7 @@ function cadastrar($usuario, $senha, $confirmarSenha, $email, $genero) {
     // Executa a instrução SQL para inserir um novo usuário na tabela 'login'
     $sql = "INSERT INTO login (userid, user_pass, email, sex, group_id) VALUES (?, ?, ?, ?, 0)";
     $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("ssss", $usuario, $senha, $email, $genero);
+    $stmt->bind_param("ssss", $usuario_c, $senha_c, $email, $genero);
     $stmt->execute();
 
     if (defined('ENVIO_DISCORD_ATIVADO') && ENVIO_DISCORD_ATIVADO) {

@@ -17,32 +17,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   // Obtenha os dados do formulário
-  $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "";
-  $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
-  $confirmarSenha = isset($_POST["confirmarSenha"]) ? $_POST["confirmarSenha"] : "";
+  $usuario_c = isset($_POST["usuario_c"]) ? $_POST["usuario_c"] : "";
+  $senha_c = isset($_POST["senha_c"]) ? $_POST["senha_c"] : "";
+  $confirmarsenha_c = isset($_POST["confirmarsenha_c"]) ? $_POST["confirmarsenha_c"] : "";
   $email = isset($_POST["email"]) ? $_POST["email"] : "";
   $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
 
 
   // Validar os dados
-  if (empty($usuario) || empty($senha) || empty($confirmarSenha) || empty($email) || empty($genero)) {
+  if (empty($usuario_c) || empty($senha_c) || empty($confirmarsenha_c) || empty($email) || empty($genero)) {
     // Tratar erro de dados incompletos
     echo "Preencha todos os campos do formulário.";
     header("Location: cadastro.php");
     exit();
   }
 
-  // Verificar se as senhas coincidem
-  if ($senha !== $confirmarSenha) {
-    // Tratar erro de senhas não coincidentes
-    echo "As senhas não coincidem. Tente novamente.";
+  // Verificar se as senha_cs coincidem
+  if ($senha_c !== $confirmarsenha_c) {
+    // Tratar erro de senha_cs não coincidentes
+    echo "As senha_cs não coincidem. Tente novamente.";
     exit();
   }
 
   $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
 
   // Chamar a função cadastrar
-  cadastrar($usuario, $senha, $confirmarSenha, $email, $genero);
+  cadastrar($usuario_c, $senha_c, $confirmarsenha_c, $email, $genero);
 }
 ?>
 
@@ -84,23 +84,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-              <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Crie um usuário"
+              <input type="text" class="form-control" id="usuario_c" name="usuario_c" placeholder="Crie um usuário"
                 required>
             </div>
           </div>
-          <!-- Senha -->
+          <!-- senha_c -->
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-              <input type="password" class="form-control" id="senha" name="senha" placeholder="Crie uma senha" required>
+              <input type="password" class="form-control" id="senha_c" name="senha_c" placeholder="Crie uma senha_c" required>
             </div>
           </div>
-          <!-- Confirmar Senha -->
+          <!-- Confirmar senha_c -->
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-              <input type="password" class="form-control" id="confirmarSenha" name="confirmarSenha"
-                placeholder="Confirme sua senha" required>
+              <input type="password" class="form-control" id="confirmarsenha_c" name="confirmarsenha_c"
+                placeholder="Confirme sua senha_c" required>
             </div>
           </div>
           <!-- Email -->
