@@ -23,3 +23,26 @@ window.onload = function() {
       content.style.display = 'block';
     }
   };
+
+  // Quando a página é carregada
+document.addEventListener('DOMContentLoaded', function() {
+  window.onscroll = function() {
+      scrollFunction();
+  };
+});
+
+// Mostra ou oculta o botão com base no scroll
+function scrollFunction() {
+  var topBtn = document.getElementById("topBtn");
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topBtn.style.display = "block";
+  } else {
+      topBtn.style.display = "none";
+  }
+};
+
+// Retorna ao topo quando o botão é clicado
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+};
