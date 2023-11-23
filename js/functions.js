@@ -22,4 +22,8 @@ window.onload = function() {
 
       content.style.display = 'block';
     }
-  }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('loaded');
+});
