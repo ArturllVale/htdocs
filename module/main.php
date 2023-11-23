@@ -30,7 +30,7 @@ include "header.php";
             </div>
         </div>
     </div>
-    <button onclick="topFunction()" id="topBtn" title="Retornar ao Topo">&#8679; Topo</button>
+    <button onclick="topFunction()" id="topBtn" title="Retornar ao Topo"><i class="fa-solid fa-arrow-up"></i></button>
     <?php
     include "footer.php";
     ?>
