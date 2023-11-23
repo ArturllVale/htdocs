@@ -3,75 +3,75 @@ session_start();
 include_once("config/includes.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Verificar hCaptcha
-  $hCaptchaResponse = $_POST['h-captcha-response'];
-  $hCaptchaSecretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
-  $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
-  $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
+    // Verificar hCaptcha
+    $hCaptchaResponse = $_POST['h-captcha-response'];
+    $hCaptchaSecretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
+    $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
+    $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
 
-  if (!$hCaptchaVerification->success) {
-    // Tratar erro de hCaptcha não verificado
-    $_SESSION["erro_login"] = 'Falha no login devido ao Captcha. Tente novamente.';
-    header("Location: index.php");
-    exit();
-  }
-
-  // Verificar se existe um usuário no formulário
-  if (isset($_POST["usuario"])) {
-    $usuario = $_POST["usuario"];
-    $senha = $_POST["senha"];
-    $salvarUsuario = isset($_POST["salvarUsuario"]);
-
-    if (verificar_login($usuario, $senha, $salvarUsuario)) {
-      $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
-      $_SESSION["logado"] = true;
-      header("Location: index.php");
-      exit();
-    } else {
-      $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
-      header("Location: index.php");
-      exit();
+    if (!$hCaptchaVerification->success) {
+        // Tratar erro de hCaptcha não verificado
+        $_SESSION["erro_login"] = 'Falha no login devido ao Captcha. Tente novamente.';
+        header("Location: index.php");
+        exit();
     }
-  }
 
-  // Verificar hCaptcha
-  $secretKeyCadastro = 'ES_35106de31fe04cd59b71adec1ddfc139';
-  $responseCadastro = $_POST['h-captcha-response'];
-  $verifyURLCadastro = "https://hcaptcha.com/siteverify?secret=$secretKeyCadastro&response=$responseCadastro";
-  $verificationCadastro = json_decode(file_get_contents($verifyURLCadastro));
+    // Verificar se existe um usuário no formulário
+    if (isset($_POST["usuario"])) {
+        $usuario = $_POST["usuario"];
+        $senha = $_POST["senha"];
+        $salvarUsuario = isset($_POST["salvarUsuario"]);
 
-  if (!$verificationCadastro->success) {
-    // Tratar erro de hCaptcha não verificado no cadastro
-    $_SESSION["erro_cadastro"] = "Erro de verificação do hCaptcha. Tente novamente.";
-    header("Location: cadastro.php");
-    exit();
-  }
+        if (verificar_login($usuario, $senha, $salvarUsuario)) {
+            $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
+            $_SESSION["logado"] = true;
+            header("Location: index.php");
+            exit();
+        } else {
+            $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
+            header("Location: index.php");
+            exit();
+        }
+    }
 
-  // Obtenha os dados do formulário de cadastro
-  $usuarioCadastro = isset($_POST["usuarioc"]) ? $_POST["usuarioc"] : "";
-  $senhaCadastro = isset($_POST["senhac"]) ? $_POST["senhac"] : "";
-  $confirmarSenhaCadastro = isset($_POST["confirmarSenha"]) ? $_POST["confirmarSenha"] : "";
-  $emailCadastro = isset($_POST["email"]) ? $_POST["email"] : "";
-  $generoCadastro = isset($_POST["genero"]) ? $_POST["genero"] : "";
+    // Verificar hCaptcha para o formulário de cadastro
+    $secretKeyCadastro = 'ES_35106de31fe04cd59b71adec1ddfc139';
+    $responseCadastro = $_POST['h-captcha-response'];
+    $verifyURLCadastro = "https://hcaptcha.com/siteverify?secret=$secretKeyCadastro&response=$responseCadastro";
+    $verificationCadastro = json_decode(file_get_contents($verifyURLCadastro));
 
-  // Validar os dados de cadastro
-  if (empty($usuarioCadastro) || empty($senhaCadastro) || empty($confirmarSenhaCadastro) || empty($emailCadastro) || empty($generoCadastro)) {
-    // Tratar erro de dados incompletos no cadastro
-    $_SESSION["erro_cadastro"] = "Preencha todos os campos do formulário de cadastro.";
-    header("Location: cadastro.php");
-    exit();
-  }
+    if (!$verificationCadastro->success) {
+        // Tratar erro de hCaptcha não verificado no cadastro
+        $_SESSION["erro_cadastro"] = "Erro de verificação do hCaptcha. Tente novamente.";
+        header("Location: cadastro.php");
+        exit();
+    }
 
-  // Verificar se as senhas coincidem no cadastro
-  if ($senhaCadastro !== $confirmarSenhaCadastro) {
-    // Tratar erro de senhas não coincidentes no cadastro
-    $_SESSION["erro_cadastro"] = "As senhas não coincidem. Tente novamente.";
-    header("Location: cadastro.php");
-    exit();
-  }
+    // Obter dados do formulário de cadastro
+    $usuarioCadastro = isset($_POST["usuarioc"]) ? $_POST["usuarioc"] : "";
+    $senhaCadastro = isset($_POST["senhac"]) ? $_POST["senhac"] : "";
+    $confirmarSenhaCadastro = isset($_POST["confirmarSenha"]) ? $_POST["confirmarSenha"] : "";
+    $emailCadastro = isset($_POST["email"]) ? $_POST["email"] : "";
+    $generoCadastro = isset($_POST["genero"]) ? $_POST["genero"] : "";
 
-  // Chamar a função cadastrar
-  cadastrar($usuarioCadastro, $senhaCadastro, $confirmarSenhaCadastro, $emailCadastro, $generoCadastro);
+    // Validar dados de cadastro
+    if (empty($usuarioCadastro) || empty($senhaCadastro) || empty($confirmarSenhaCadastro) || empty($emailCadastro) || empty($generoCadastro)) {
+        // Tratar erro de dados incompletos no cadastro
+        $_SESSION["erro_cadastro"] = "Preencha todos os campos do formulário de cadastro.";
+        header("Location: cadastro.php");
+        exit();
+    }
+
+    // Verificar se as senhas coincidem no cadastro
+    if ($senhaCadastro !== $confirmarSenhaCadastro) {
+        // Tratar erro de senhas não coincidentes no cadastro
+        $_SESSION["erro_cadastro"] = "As senhas não coincidem. Tente novamente.";
+        header("Location: cadastro.php");
+        exit();
+    }
+
+    // Chamar a função cadastrar
+    cadastrar($usuarioCadastro, $senhaCadastro, $confirmarSenhaCadastro, $emailCadastro, $generoCadastro);
 }
 ?>
 
