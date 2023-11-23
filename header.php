@@ -2,7 +2,7 @@
 session_start();
 include_once("config/includes.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && isset($_POST['login'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['submite'] == 'login') {
   $usuario = $_POST["usuario"];
   $senha = $_POST["senha"];
   $salvarUsuario = isset($_POST["salvarUsuario"]);

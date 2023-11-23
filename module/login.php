@@ -12,7 +12,7 @@
             </ul>
         </div>
         <div class="col-md-6 index-direita">
-            <form action="index.php" method="post">
+            <form action="index.php" method="post" id="login">
                 <div class="input-group mb-2">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
                     <input type="text" class="form-control" placeholder="Usuário" name="usuario" aria-label="Username"
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="col text-end">
-                        <button type="submit" name="submite" value="login" class="btn btn-primary">Entrar</button>
+                         <button type="submit" name="submite" value="login" class="btn btn-primary">Entrar</button>
                     </div>
                     <p class="index-novaconta">Não possui uma conta? <span class="color-conta"><a href="cadastro">Criar
                                 Agora!</a></span></p>
