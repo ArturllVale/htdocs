@@ -24,25 +24,26 @@ window.onload = function() {
     }
   };
 
-  // Quando a página é carregada
 document.addEventListener('DOMContentLoaded', function() {
-  window.onscroll = function() {
-      scrollFunction();
-  };
+    window.onscroll = function() {
+        scrollFunction();
+    };
 });
 
-// Mostra ou oculta o botão com base no scroll
 function scrollFunction() {
-  var topBtn = document.getElementById("topBtn");
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      topBtn.style.display = "block";
-  } else {
-      topBtn.style.display = "none";
-  }
+    var topBtn = document.getElementById("topBtn");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        topBtn.style.opacity = "1";
+        topBtn.style.display = "block";
+    } else {
+        topBtn.style.opacity = "0";
+        setTimeout(function() {
+            topBtn.style.display = "none";
+        }, 300); // Tempo correspondente à transição CSS
+    }
 };
 
-// Retorna ao topo quando o botão é clicado
 function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 };
