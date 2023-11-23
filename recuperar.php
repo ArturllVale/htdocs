@@ -1,5 +1,5 @@
 <?php
-require "../header.php";
+require "header.php";
 ?>
 
 <body>
@@ -18,7 +18,7 @@ require "../header.php";
             </div>
             <div class="col-md-6 index-direita">
 
-                <form action="recuperar_senha.php" method="post" id="recuperarSenha">
+                <form action="recuperar.php" method="post" id="recuperarSenha">
                     <div class="input-group mb-2">
                         <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
                         <input type="email" class="form-control" placeholder="E-mail" name="email" aria-label="E-mail"
@@ -42,5 +42,5 @@ require "../header.php";
     </div>
 
     <?php
-    require "../footer.php";
+    require "footer.php";
     ?>
