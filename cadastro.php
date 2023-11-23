@@ -1,67 +1,6 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  include_once("config/includes.php");
-
-  // Verifique o hCaptcha
-  $chavesHCaptcha = obterChavesHCaptcha();
-  $secretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
-  $response = $_POST['h-captcha-response'];
-  $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
-  $verification = json_decode(file_get_contents($verifyURL));
-
-  if (!$verification->success) {
-    // Tratar erro de hCaptcha não verificado
-    echo "Erro de verificação do hCaptcha. Tente novamente.";
-    header("Location: cadastro.php");
-    exit();
-  }
-
-  // Obtenha os dados do formulário
-  $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "";
-  $senha = isset($_POST["senha"]) ? $_POST["senha"] : "";
-  $confirmarSenha = isset($_POST["confirmarSenha"]) ? $_POST["confirmarSenha"] : "";
-  $email = isset($_POST["email"]) ? $_POST["email"] : "";
-  $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
-
-
-  // Validar os dados
-  if (empty($usuario) || empty($senha) || empty($confirmarSenha) || empty($email) || empty($genero)) {
-    // Tratar erro de dados incompletos
-    echo "Preencha todos os campos do formulário.";
-    header("Location: cadastro.php");
-    exit();
-  }
-
-  // Verificar se as senhas coincidem
-  if ($senha !== $confirmarSenha) {
-    // Tratar erro de senhas não coincidentes
-    echo "As senhas não coincidem. Tente novamente.";
-    exit();
-  }
-
-  $sitekeyHCaptcha = obterChavesHCaptcha()['sitekey'];
-
-  // Chamar a função cadastrar
-  cadastrar($usuario, $senha, $confirmarSenha, $email, $genero);
-}
+include "header.php";
 ?>
-
-<!doctype html>
-<html lang="pt-br">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Criar Nova Conta</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="css/estilo.css">
-  <link rel="shortcut icon" href="Favicon.ico" type="image/x-icon">
-  <script src='https://js.hcaptcha.com/1/api.js' async defer></script>
-</head>
 
 <body>
   <div class="container">
