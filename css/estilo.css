@@ -184,3 +184,7 @@ h2 {
 #topBtn:hover {
     background-color: #0056b3;
 }
+
+.logo {
+    max-width: 100px;
+}

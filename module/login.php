@@ -12,6 +12,7 @@
             </ul>
         </div>
         <div class="col-md-6 index-direita">
+            <img src="/data/logo.png" alt="logo" class="logo">
             <form action="index.php" method="post" id="login">
                 <div class="input-group mb-2">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
