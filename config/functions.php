@@ -204,14 +204,12 @@ function obterEnderecoIP() {
     return $ip;
 }
 
-function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero)
-{
+function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero) {
     iniciarSessao();
 
     $conexao = conectarBanco();
 
     // Verificação do comprimento mínimo do usuário e da senha
-    // Se o usuário ou a senha tiver menos de 4 caracteres, exibe um alerta e interrompe o processo de cadastro
     if (strlen($usuario_c) < 4 || strlen($senha_c) < 4) {
         exibirAlerta('O usuário e a senha devem ter pelo menos 4 dígitos.');
         return;
@@ -229,7 +227,6 @@ function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero)
         return;
     }
 
-    // Converte o gênero para o formato esperado pelo banco de dados (M para homem, S para mulher)
     $genero = ($genero == "homem") ? "M" : "S";
 
     // Executa a instrução SQL para inserir um novo usuário na tabela 'login'
@@ -239,13 +236,13 @@ function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero)
     $stmt->execute();
 
     // Registro na tabela security_log
+    $enderecoIP = obterEnderecoIP();
     $logSql = "INSERT INTO security_log (username, ip_address, timestamp, action, attempts) VALUES (?, ?, NOW(), 'Conta Criada', 0)";
     $logStmt = $conexao->prepare($logSql);
-    $logStmt->bind_param("ss", $usuario_c, obterEnderecoIP());
+    $logStmt->bind_param("ss", $usuario_c, $enderecoIP);
     $logStmt->execute();
 
     if (defined('ENVIO_DISCORD_ATIVADO') && ENVIO_DISCORD_ATIVADO) {
-        // Enviar mensagem para o servidor do Discord
         $mensagemDiscord = "Oba, agora temos uma nova conta criada! Total de contas: " . obterTotalContas();
         enviarMensagemDiscord($mensagemDiscord);
     }
