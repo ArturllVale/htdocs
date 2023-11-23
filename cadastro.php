@@ -23,7 +23,7 @@ include "header.php";
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-              <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Crie um usuário"
+              <input type="text" class="form-control" id="usuarioc" name="usuarioc" placeholder="Crie um usuário"
                 required>
             </div>
           </div>
@@ -31,7 +31,7 @@ include "header.php";
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-              <input type="password" class="form-control" id="senha" name="senha" placeholder="Crie uma senha" required>
+              <input type="password" class="form-control" id="senhac" name="senhac" placeholder="Crie uma senha" required>
             </div>
           </div>
           <!-- Confirmar Senha -->

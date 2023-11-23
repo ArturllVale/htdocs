@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   // Obtenha os dados do formulário de cadastro
-  $usuarioCadastro = isset($_POST["usuario"]) ? $_POST["usuario"] : "";
-  $senhaCadastro = isset($_POST["senha"]) ? $_POST["senha"] : "";
+  $usuarioCadastro = isset($_POST["usuarioc"]) ? $_POST["usuarioc"] : "";
+  $senhaCadastro = isset($_POST["senhac"]) ? $_POST["senhac"] : "";
   $confirmarSenhaCadastro = isset($_POST["confirmarSenha"]) ? $_POST["confirmarSenha"] : "";
   $emailCadastro = isset($_POST["email"]) ? $_POST["email"] : "";
   $generoCadastro = isset($_POST["genero"]) ? $_POST["genero"] : "";
