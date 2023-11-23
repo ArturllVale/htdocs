@@ -39,8 +39,8 @@ body {
 .index-direita {
     background-color: white;
     border-radius: 0px 10px 10px 0px;
-    padding: 80px;
-    padding-top: 11em;
+    padding: 0px 80px 0px 80px;
+    padding-top: 6em;
 }
 
 .index-direita-main {
@@ -187,5 +187,5 @@ h2 {
 
 .logo {
     max-width: 260px;
-    margin-top: -170px;
+    margin-top: -50px;
 }
