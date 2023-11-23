@@ -1,5 +1,6 @@
-<?php 
-function conectarBanco() {
+<?php
+function conectarBanco()
+{
     // Estabelece uma conexão com o banco de dados
     $conexao = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
@@ -13,14 +14,16 @@ function conectarBanco() {
     return $conexao;
 }
 
-function iniciarSessao() {
+function iniciarSessao()
+{
     // Inicia a sessão se ainda não estiver iniciada
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
 }
 
-function exibirAlerta($mensagem) {
+function exibirAlerta($mensagem)
+{
     // Exibe um alerta com a mensagem fornecida e redireciona para a página inicial
     echo "<script>
             alert('$mensagem');
@@ -28,7 +31,8 @@ function exibirAlerta($mensagem) {
           </script>";
 }
 
-function getLastLoginAttemptTime($usuario, $conexao) {
+function getLastLoginAttemptTime($usuario, $conexao)
+{
     $sql = "SELECT timestamp FROM security_log WHERE username = ? ORDER BY timestamp DESC LIMIT 1";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("s", $usuario);
@@ -43,21 +47,24 @@ function getLastLoginAttemptTime($usuario, $conexao) {
     }
 }
 
-function resetLoginAttempts($usuario, $conexao) {
+function resetLoginAttempts($usuario, $conexao)
+{
     $sql = "UPDATE security_log SET attempts = 0 WHERE username = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("s", $usuario);
     $stmt->execute();
 }
 
-function increaseLoginAttempts($usuario, $conexao) {
+function increaseLoginAttempts($usuario, $conexao)
+{
     $sql = "UPDATE security_log SET attempts = attempts + 1 WHERE username = ?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("s", $usuario);
     $stmt->execute();
 }
 
-function verificar_login($usuario, $senha, $salvarUsuario) {
+function verificar_login($usuario, $senha, $salvarUsuario)
+{
     iniciarSessao();
 
     $conexao = conectarBanco();
@@ -126,33 +133,36 @@ function verificar_login($usuario, $senha, $salvarUsuario) {
     }
 }
 
-function enviarMensagemDiscord($mensagem) {
+function enviarMensagemDiscord($mensagem)
+{
     if (defined('ENVIO_DISCORD_ATIVADO') && ENVIO_DISCORD_ATIVADO) {
-    $webhookURL = DISCORD_WEBHOOK_URL;
+        $webhookURL = DISCORD_WEBHOOK_URL;
 
-    $data = array(
-        "content" => $mensagem
-    );
+        $data = array(
+            "content" => $mensagem
+        );
 
-    // Configuração da requisição cURL para enviar mensagem para o webhook do Discord
-    // Utiliza o método POST, envia os dados em formato JSON, recebe a resposta e define 
-    // o cabeçalho como 'Content-Type: application/json'
-    $ch = curl_init($webhookURL);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json',
-    ));
+        // Configuração da requisição cURL para enviar mensagem para o webhook do Discord
+        // Utiliza o método POST, envia os dados em formato JSON, recebe a resposta e define 
+        // o cabeçalho como 'Content-Type: application/json'
+        $ch = curl_init($webhookURL);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+        )
+        );
 
-    $result = curl_exec($ch);
-    curl_close($ch);
+        $result = curl_exec($ch);
+        curl_close($ch);
 
-    return $result;
+        return $result;
+    }
 }
-}
 
-function logSecurityEvent($username, $ipAddress, $action) {
+function logSecurityEvent($username, $ipAddress, $action)
+{
     $conexao = conectarBanco();
 
     // Inserção de registro no log de segurança
@@ -166,12 +176,13 @@ function logSecurityEvent($username, $ipAddress, $action) {
     $conexao->close();
 }
 
-function obterTotalContas() {
+function obterTotalContas()
+{
     $conexao = conectarBanco();
 
     $sql = "SELECT COUNT(*) as total FROM login";
     $resultado = $conexao->query($sql);
-    
+
     if ($resultado) {
         $total = $resultado->fetch_assoc()['total'];
         return $total;
@@ -180,7 +191,21 @@ function obterTotalContas() {
     }
 }
 
-function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero) {
+function obterEnderecoIP() {
+    // Verifica se o usuário está por trás de um proxy
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+
+    return $ip;
+}
+
+function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero)
+{
     iniciarSessao();
 
     $conexao = conectarBanco();
@@ -213,17 +238,24 @@ function cadastrar($usuario_c, $senha_c, $confirmarSenha_c, $email, $genero) {
     $stmt->bind_param("ssss", $usuario_c, $senha_c, $email, $genero);
     $stmt->execute();
 
+    // Registro na tabela security_log
+    $logSql = "INSERT INTO security_log (username, ip_address, timestamp, action, attempts) VALUES (?, ?, NOW(), 'Conta Criada', 0)";
+    $logStmt = $conexao->prepare($logSql);
+    $logStmt->bind_param("ss", $usuario_c, obterEnderecoIP());
+    $logStmt->execute();
+
     if (defined('ENVIO_DISCORD_ATIVADO') && ENVIO_DISCORD_ATIVADO) {
-    // Enviar mensagem para o servidor do Discord
-    $mensagemDiscord = "Oba, agora temos uma nova conta criada! Total de contas: " . obterTotalContas();
-    enviarMensagemDiscord($mensagemDiscord);
+        // Enviar mensagem para o servidor do Discord
+        $mensagemDiscord = "Oba, agora temos uma nova conta criada! Total de contas: " . obterTotalContas();
+        enviarMensagemDiscord($mensagemDiscord);
     }
 
     exibirAlerta('Cadastro realizado com sucesso!');
 }
 
 // Função para obter o gênero do usuário com base no nome de usuário
-function obterGeneroDoUsuario($usuario) {
+function obterGeneroDoUsuario($usuario)
+{
     $conexao = conectarBanco();
 
     // Consulta ao banco de dados para obter o gênero do usuário
@@ -242,7 +274,8 @@ function obterGeneroDoUsuario($usuario) {
     return "M"; // Neste exemplo, retorna "M" se o usuário não for encontrado.
 }
 
-function obterGroupIdDoBancoDeDados($usuario) {
+function obterGroupIdDoBancoDeDados($usuario)
+{
     $conexao = conectarBanco();
 
     // Consulta o banco de dados para obter o group_id do usuário
