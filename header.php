@@ -3,7 +3,7 @@ session_start();
 include_once("config/includes.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Verificar hCaptcha no Login
+  // Verificar hCaptcha
   $hCaptchaResponse = $_POST['h-captcha-response'];
   $hCaptchaSecretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
   $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-  // Verifique o Captcha no registro
+  // Verifique o hCaptcha para o formulário de cadastro
   $chavesHCaptcha = obterChavesHCaptcha();
   $secretKeyCadastro = 'ES_35106de31fe04cd59b71adec1ddfc139';
   $responseCadastro = $_POST['h-captcha-response'];
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (!$verificationCadastro->success) {
     // Tratar erro de hCaptcha não verificado no cadastro
-    echo "Erro de verificação do Captcha. Tente novamente.";
+    $_SESSION["erro_cadastro"] = "Erro de verificação do hCaptcha. Tente novamente.";
     header("Location: cadastro.php");
     exit();
   }
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Validar os dados de cadastro
   if (empty($usuarioCadastro) || empty($senhaCadastro) || empty($confirmarSenhaCadastro) || empty($emailCadastro) || empty($generoCadastro)) {
     // Tratar erro de dados incompletos no cadastro
-    echo "Preencha todos os campos do formulário de cadastro.";
+    $_SESSION["erro_cadastro"] = "Preencha todos os campos do formulário de cadastro.";
     header("Location: cadastro.php");
     exit();
   }
@@ -66,7 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Verificar se as senhas coincidem no cadastro
   if ($senhaCadastro !== $confirmarSenhaCadastro) {
     // Tratar erro de senhas não coincidentes no cadastro
-    echo "As senhas não coincidem. Tente novamente.";
+    $_SESSION["erro_cadastro"] = "As senhas não coincidem. Tente novamente.";
+    header("Location: cadastro.php");
     exit();
   }
 
