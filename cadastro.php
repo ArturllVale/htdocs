@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $confirmarSenha = isset($_POST["confirmarSenha"]) ? $_POST["confirmarSenha"] : "";
   $email = isset($_POST["email"]) ? $_POST["email"] : "";
   $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
-  
+
 
   // Validar os dados
   if (empty($usuario) || empty($senha) || empty($confirmarSenha) || empty($email) || empty($genero)) {
@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="shortcut icon" href="Favicon.ico" type="image/x-icon">
   <script src='https://js.hcaptcha.com/1/api.js' async defer></script>
 </head>
+
 <body>
   <div class="container">
     <div class="row index-box">

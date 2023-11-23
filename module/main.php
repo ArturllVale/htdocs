@@ -1,5 +1,5 @@
 <?php
-  include "header.php";
+include "header.php";
 ?>
 
 <body>
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    
+
     <?php
     include "footer.php";
     ?>

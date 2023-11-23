@@ -14,21 +14,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
 
   if (!$hCaptchaVerification->success) {
-      // Tratar erro de hCaptcha não verificado
-      $_SESSION["erro_login"] = 'Falha no login devido ao hCaptcha. Tente novamente.';
-      header("Location: index.php");
-      exit();
+    // Tratar erro de hCaptcha não verificado
+    $_SESSION["erro_login"] = 'Falha no login devido ao hCaptcha. Tente novamente.';
+    header("Location: index.php");
+    exit();
   }
 
   if (verificar_login($usuario, $senha, $salvarUsuario)) {
-      $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
-      $_SESSION["logado"] = true;
-      header("Location: index.php");
-      exit();
+    $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
+    $_SESSION["logado"] = true;
+    header("Location: index.php");
+    exit();
   } else {
-      $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
-      header("Location: index.php");
-      exit();
+    $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
+    header("Location: index.php");
+    exit();
   }
 }
 ?>
