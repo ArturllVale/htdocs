@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-  // Verifique o hCaptcha para o formulário de cadastro
+  // Verificar hCaptcha
   $secretKeyCadastro = 'ES_35106de31fe04cd59b71adec1ddfc139';
   $responseCadastro = $_POST['h-captcha-response'];
   $verifyURLCadastro = "https://hcaptcha.com/siteverify?secret=$secretKeyCadastro&response=$responseCadastro";
