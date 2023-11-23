@@ -30,6 +30,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: index.php");
     exit();
   }
+
+  // Lógica pra função de cadastro
+  // Verifique o hCaptcha
+  $secretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
+  $response = $_POST['h-captcha-response'];
+  $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
+  $verification = json_decode(file_get_contents($verifyURL));
+
+  if (!$verification->success) {
+    // Tratar erro de hCaptcha não verificado
+    echo "Erro de verificação do hCaptcha. Tente novamente.";
+    header("Location: cadastro.php");
+    exit();
+  }
+
+  // Obtenha os dados do formulário
+  $usuario_c = isset($_POST["usuario_c"]) ? $_POST["usuario_c"] : "";
+  $senha_c = isset($_POST["senha_c"]) ? $_POST["senha_c"] : "";
+  $confirmarsenha_c = isset($_POST["confirmarsenha_c"]) ? $_POST["confirmarsenha_c"] : "";
+  $email = isset($_POST["email"]) ? $_POST["email"] : "";
+  $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
+
+
+  // Validar os dados
+  if (empty($usuario_c) || empty($senha_c) || empty($confirmarsenha_c) || empty($email) || empty($genero)) {
+    // Tratar erro de dados incompletos
+    echo "Preencha todos os campos do formulário.";
+    header("Location: cadastro.php");
+    exit();
+  }
+
+  // Verificar se as senha_cs coincidem
+  if ($senha_c !== $confirmarsenha_c) {
+    // Tratar erro de senha_cs não coincidentes
+    echo "As senha_cs não coincidem. Tente novamente.";
+    exit();
+  }
+
+  // Chamar a função cadastrar
+  cadastrar($usuario_c, $senha_c, $confirmarsenha_c, $email, $genero);
 }
 ?>
 
