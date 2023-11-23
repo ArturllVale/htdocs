@@ -107,7 +107,7 @@ body {
 
 .breadcrumb-item a {
     text-decoration: none !important;
-    color: black !important;
+    color: black;
 }
 
 .breadcrumb {
@@ -144,7 +144,7 @@ body {
 }
 
 .adm-red {
-    color: red;
+    color: red !important;
 }
 
 .content {
