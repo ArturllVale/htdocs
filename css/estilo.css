@@ -186,5 +186,6 @@ h2 {
 }
 
 .logo {
-    max-width: 100px;
+    max-width: 260px;
+    margin-top: -170px;
 }
