@@ -63,8 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src='https://js.hcaptcha.com/1/api.js' async defer></script>
 </head>
 <body>
-  <br>
-  <br>
   <div class="container">
     <div class="row index-box">
       <div class="col-md-6 index-esquerda">
