@@ -118,6 +118,10 @@ body {
     text-align: center;
 }
 
+.breadcrumb-item+.breadcrumb-item::before {
+    content: var(--bs-breadcrumb-divider, "|") !important;
+}
+
 .discord-bot {
     margin: 0;
     margin-left: -24px;
