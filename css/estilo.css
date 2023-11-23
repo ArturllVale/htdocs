@@ -107,6 +107,7 @@ body {
 
 .breadcrumb-item a {
     text-decoration: none !important;
+    color: black !important;
 }
 
 .breadcrumb {
