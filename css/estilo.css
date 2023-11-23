@@ -169,14 +169,14 @@ h2 {
     bottom: 20px;
     right: 20px;
     z-index: 99;
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     outline: none;
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
 }
 
 #topBtn:hover {
