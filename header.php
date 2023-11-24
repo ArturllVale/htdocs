@@ -99,13 +99,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($atualizacaoSucesso) {
         // Mensagem de sucesso
         $_SESSION["sucesso_redefinir_senha"] = 'Senha alterada com sucesso. Faça login com a nova senha.';
-        echo "Senha alterada com sucesso. Faça login com a nova senha.";
-        // Redireciona para a página de login após a redefinição bem-sucedida
-        header("Location: login.php");
-        exit(); // Adicionado exit() aqui
-      } else {
+        // Exibe a mensagem de sucesso
+        echo $_SESSION["sucesso_redefinir_senha"];
+        // Fornece um link para a página de login
+        echo '<a href="login.php">Clique aqui para fazer login</a>';
+    } else {
         $_SESSION["erro_redefinir_senha"] = 'Erro ao redefinir a senha. Tente novamente.';
-      }
+        // Exibe a mensagem de erro
+        echo $_SESSION["erro_redefinir_senha"];
+    }
+    
     }
   }
 }
