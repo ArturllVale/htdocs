@@ -97,6 +97,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo '<script>alert("O link de redefinição de senha já foi utilizado."); window.location.href = "index.php";</script>';
         exit();
     }
+    // Verifica se a senha tem mais de 4 dígitos
+    if (strlen($senha) <= 4) {
+      $_SESSION["erro_redefinir_senha"] = 'A senha deve ter mais de 4 dígitos.';
+      echo '<script>alert("' . $_SESSION["erro_redefinir_senha"] . '");</script>';
+      return;
+    }
 
     // Verifica se as senhas coincidem
     if ($senha !== $confirmarSenha) {
