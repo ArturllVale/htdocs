@@ -363,6 +363,9 @@ function recuperarSenha($email, $confirmarEmail)
     // Mensagem de sucesso
     $_SESSION["sucesso_recuperar_senha"] = 'Um e-mail de recuperação foi enviado. Verifique sua caixa de entrada.';
 
+    // Redireciona para o index após a mensagem de sucesso
+    echo '<script>window.location.href = "index.php";</script>';
+
     // Verifica se a mensagem de sucesso está presente na sessão
     if (isset($_SESSION["sucesso_recuperar_senha"])) {
         // Exibe a mensagem usando JavaScript para mostrar um popup
