@@ -102,14 +102,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
   // Redireciona de volta para a página de recuperação com o token
   header("Location: recuperar_senha.php?token=$token");
   exit();
-} else {
-  // Redireciona para a página inicial ou outra página em caso de acesso incorreto
-  header("Location: index.php");
-  exit();
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
