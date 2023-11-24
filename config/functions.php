@@ -317,10 +317,17 @@ function enviarLinkRecuperacao($email, $linkRecuperacao)
         $mail->Port = SMTP_PORT;
 
         // Configurações do e-mail
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64'; // ou 'quoted-printable'
         $mail->setFrom(EMAIL_FROM, SENDER_NAME);
         $mail->addAddress($email);
-        $mail->Subject = 'Recuperação de Senha';
-        $mail->Body = 'Clique no link a seguir para recuperar sua senha: ' . $linkRecuperacao;
+        $mail->Subject = 'Recuperar Senha MeuRO';
+        $mail->Body = 'Olá,';
+        $mail->Body .= '<p>Clique no link a seguir para recuperar sua senha:</p>';
+        $mail->Body .= '<p><a href="' . $linkRecuperacao . '">Clique Aqui</a> para recuperar sua senha</p>';
+        $mail->Body .= '<p>Atenciosamente,</p>';
+        $mail->Body .= '<p>Meu RO Online</p>';
+
 
         // Envia o e-mail
         $mail->send();
@@ -331,16 +338,19 @@ function enviarLinkRecuperacao($email, $linkRecuperacao)
     }
 }
 
-function recuperarSenha($email, $confirmarEmail)
-{
-    iniciarSessao();
-
+function recuperarSenha($email, $confirmarEmail) {
     $conexao = conectarBanco();
+
+    // Verifica se a conexão com o banco de dados foi estabelecida
+    if ($conexao === null) {
+        die("Erro na conexão com o banco de dados.");
+    }
 
     // Verifica se os campos de e-mail coincidem
     if ($email !== $confirmarEmail) {
-        exibirAlerta('Os campos de e-mail não coincidem.');
-        return;
+        $_SESSION["erro_recuperar_senha"] = 'Os campos de e-mail não coincidem.';
+        header("Location: recuperar.php");
+        exit();
     }
 
     // Consulta ao banco de dados para verificar se o e-mail existe
@@ -351,8 +361,9 @@ function recuperarSenha($email, $confirmarEmail)
     $resultado = $stmt->get_result();
 
     if ($resultado->num_rows === 0) {
-        exibirAlerta('O e-mail fornecido não está registrado.');
-        return;
+        $_SESSION["erro_recuperar_senha"] = 'O e-mail fornecido não está registrado.';
+        header("Location: recuperar.php");
+        exit();
     }
 
     // Gera um token único para a recuperação de senha
@@ -365,19 +376,23 @@ function recuperarSenha($email, $confirmarEmail)
     $stmt->execute();
 
     // Configurações do link de recuperação
-    $linkRecuperacao = "recuperar.php?token=$token";
+    $linkRecuperacao = "https://lseyvwh2.srv-108-181-92-76.webserverhost.top/recuperar.php?token=$token";
 
     // Envia o e-mail com o link de recuperação
     enviarLinkRecuperacao($email, $linkRecuperacao);
 
-    // Após a conclusão bem-sucedida da recuperação de senha, exibe uma mensagem adequada.
-    exibirAlerta('Um e-mail de recuperação foi enviado. Verifique sua caixa de entrada.');
+    // Mensagem de sucesso
+    $_SESSION["sucesso_recuperar_senha"] = 'Um e-mail de recuperação foi enviado. Verifique sua caixa de entrada.';
 
-    // Se necessário, adicione registros de log ou outras operações aqui.
+    // Verifica se a mensagem de sucesso está presente na sessão
+    if (isset($_SESSION["sucesso_recuperar_senha"])) {
+        // Exibe a mensagem usando JavaScript para mostrar um popup
+        echo '<script>alert("' . $_SESSION["sucesso_recuperar_senha"] . '");</script>';
+        // Limpa a variável de sessão
+        unset($_SESSION["sucesso_recuperar_senha"]);
+    }
 
-    // Feche a conexão com o banco de dados.
-    $stmt->close();
-    $conexao->close();
+    exit();
 }
 
 function gerarToken()

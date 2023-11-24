@@ -114,15 +114,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
   $stmt->execute();
 
   // Configurações do link de recuperação
-  $linkRecuperacao = "recuperar.php?token=$token";
+  $linkRecuperacao = "https://lseyvwh2.srv-108-181-92-76.webserverhost.top/recuperar.php?token=$token";
 
   // Envia o e-mail com o link de recuperação
   enviarLinkRecuperacao($email, $linkRecuperacao);
 
   // Mensagem de sucesso
   $_SESSION["sucesso_recuperar_senha"] = 'Um e-mail de recuperação foi enviado. Verifique sua caixa de entrada.';
-  header("Location: recuperar.php");
+
+  // Verifica se a mensagem de sucesso está presente na sessão
+  if (isset($_SESSION["sucesso_recuperar_senha"])) {
+    // Exibe a mensagem usando JavaScript para mostrar um popup
+    echo '<script>alert("' . $_SESSION["sucesso_recuperar_senha"] . '");</script>';
+    // Limpa a variável de sessão
+    unset($_SESSION["sucesso_recuperar_senha"]);
+  }
+
   exit();
+
 }
 
 ?>
