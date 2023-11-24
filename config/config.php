@@ -12,7 +12,7 @@ define('DISCORD_WEBHOOK_URL', 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/S
 // Configurações de e-mail
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_USERNAME', 'hakahaybr@gmail.com');
-define('SMTP_PASSWORD', '32291143');
+define('SMTP_PASSWORD', 'Artur@32291143');
 define('SMTP_SECURE', 'tls');
 define('SMTP_PORT', 587);
 
