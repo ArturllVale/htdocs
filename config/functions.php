@@ -420,11 +420,8 @@ function atualizarSenhaComToken($token, $novaSenha)
         return false;
     }
 
-    // Gera a senha hash
-    $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
-
-    // Atualiza a senha na tabela de login
-    $stmtSenha->bind_param("ss", $senhaHash, $email);
+    // Atualiza a senha na tabela de login sem gerar a senha hash
+    $stmtSenha->bind_param("ss", $novaSenha, $email);
     $resultado = $stmtSenha->execute();
 
     // Verifica se a execução foi bem-sucedida
