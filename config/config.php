@@ -10,9 +10,9 @@ define('ENVIO_DISCORD_ATIVADO', false);     // Defina como true para ativar ou f
 define('DISCORD_WEBHOOK_URL', 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_TOKEN');
 
 // Configurações de e-mail
-define('SMTP_HOST', 'server-web14.dal.pz.samtooweb.com');
-define('SMTP_USERNAME', 'noreply@mundorag.com.br');
-define('SMTP_PASSWORD', 'Artur@32291143');
+define('SMTP_HOST', 'sandbox.smtp.mailtrap.io');
+define('SMTP_USERNAME', '10027ae8e3d6b0');
+define('SMTP_PASSWORD', '9a0bd86ebfb996');
 define('SMTP_SECURE', 'tls');
 define('SMTP_PORT', 465);
 
