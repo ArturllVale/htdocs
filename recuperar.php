@@ -17,7 +17,7 @@ require "header.php";
                 </ul>
             </div>
             <div class="col-md-6 index-direita">
-
+            <h2>Recuperar Senha</h2>
                 <form action="recuperar.php" method="post" id="recuperarSenha">
                     <div class="input-group mb-2">
                         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
