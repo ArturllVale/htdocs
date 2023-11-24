@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
 
   if ($resultado->num_rows === 0) {
     $_SESSION["erro_recuperar_senha"] = 'O e-mail fornecido não está registrado.';
-    header("Location: recuperar_senha.php");
+    header("Location: recuperar.php");
     exit();
   }
 
