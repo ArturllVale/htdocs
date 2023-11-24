@@ -46,7 +46,7 @@
                         </div>
                     <?php endif; ?>
                     <div class="mb-3">
-                        <div class="h-captcha" data-sitekey="d599cdb7-dc4c-43da-b266-bcf11ff1a5c2"></div>
+                    <div class="h-captcha" data-sitekey="<?php echo DATA_SITEKEY; ?>"></div>
                     </div>
                     <p style="text-align: center; font-size: 12px;"><a href="recuperar">Esqueceu a senha?</a></p>
                 </div>

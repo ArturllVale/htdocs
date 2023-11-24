@@ -9,6 +9,7 @@ define('SITE_URL', 'https://lseyvwh2.srv-108-181-92-76.webserverhost.top'); // U
 define('ENVIO_DISCORD_ATIVADO', false);     // Defina como true para ativar ou false para desativar
                                             // o envio de Mensagem de nova conta no Servidor do Discord.
 define('DISCORD_WEBHOOK_URL', 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_TOKEN');
+define('DATA_SITEKEY', 'd599cdb7-dc4c-43da-b266-bcf11ff1a5c2');
 
 // Configurações de e-mail
 define('SMTP_HOST', 'sandbox.smtp.mailtrap.io');
