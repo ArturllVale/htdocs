@@ -106,10 +106,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["erro_redefinir_senha"] = 'Erro ao redefinir a senha. Tente novamente.';
       }
     }
-
-    // Redireciona de volta para a página de recuperação com o token
-    header("Location: index.php");
-    exit();
   }
 }
 
