@@ -355,7 +355,7 @@ function recuperarSenha($email, $confirmarEmail)
     $stmtUpdateToken->execute();
 
     // Configurações do link de recuperação
-    $linkRecuperacao = "https://lseyvwh2.srv-108-181-92-76.webserverhost.top/recuperar_senha.php?token=$token";
+    $linkRecuperacao = SITE_URL . "/recuperar_senha.php?token=$token";
 
     // Envia o e-mail com o link de recuperação
     enviarLinkRecuperacao($email, $linkRecuperacao);
@@ -363,8 +363,9 @@ function recuperarSenha($email, $confirmarEmail)
     // Mensagem de sucesso
     $_SESSION["sucesso_recuperar_senha"] = 'Um e-mail de recuperação foi enviado. Verifique sua caixa de entrada.';
 
-    // Redireciona para o index após a mensagem de sucesso
-    echo '<script>window.location.href = "index.php";</script>';
+    // Exibe a mensagem de sucesso como um pop-up e redireciona para a página index
+    echo '<script>alert("' . $_SESSION["sucesso_recuperar_senha"] . '"); window.location.href = "index.php";</script>';
+
 
     // Verifica se a mensagem de sucesso está presente na sessão
     if (isset($_SESSION["sucesso_recuperar_senha"])) {
