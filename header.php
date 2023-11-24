@@ -75,63 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit'] == 'recuperarSenha') {
-  $conexao = conectarBanco();
   $email = $_POST["email"];
   $confirmarEmail = $_POST["confirmarEmail"];
-
-  // Verifica se a conexão com o banco de dados foi estabelecida
-  if ($conexao === null) {
-    die("Erro na conexão com o banco de dados.");
-  }
-
-  // Verifica se os campos de e-mail coincidem
-  if ($email !== $confirmarEmail) {
-    $_SESSION["erro_recuperar_senha"] = 'Os campos de e-mail não coincidem.';
-    header("Location: recuperar.php");
-    exit();
-  }
-
-  // Consulta ao banco de dados para verificar se o e-mail existe
-  $sql = "SELECT * FROM login WHERE email = ?";
-  $stmt = $conexao->prepare($sql);
-  $stmt->bind_param("s", $email);
-  $stmt->execute();
-  $resultado = $stmt->get_result();
-
-  if ($resultado->num_rows === 0) {
-    $_SESSION["erro_recuperar_senha"] = 'O e-mail fornecido não está registrado.';
-    header("Location: recuperar.php");
-    exit();
-  }
-
-  // Gera um token único para a recuperação de senha
-  $token = gerarToken();
-
-  // Salva o token no banco de dados, juntamente com o e-mail e um timestamp para expiração
-  $sql = "INSERT INTO tokens_recuperacao_senha (email, token, timestamp) VALUES (?, ?, NOW())";
-  $stmt = $conexao->prepare($sql);
-  $stmt->bind_param("ss", $email, $token);
-  $stmt->execute();
-
-  // Configurações do link de recuperação
-  $linkRecuperacao = "https://lseyvwh2.srv-108-181-92-76.webserverhost.top/recuperar.php?token=$token";
-
-  // Envia o e-mail com o link de recuperação
-  enviarLinkRecuperacao($email, $linkRecuperacao);
-
-  // Mensagem de sucesso
-  $_SESSION["sucesso_recuperar_senha"] = 'Um e-mail de recuperação foi enviado. Verifique sua caixa de entrada.';
-
-  // Verifica se a mensagem de sucesso está presente na sessão
-  if (isset($_SESSION["sucesso_recuperar_senha"])) {
-    // Exibe a mensagem usando JavaScript para mostrar um popup
-    echo '<script>alert("' . $_SESSION["sucesso_recuperar_senha"] . '");</script>';
-    // Limpa a variável de sessão
-    unset($_SESSION["sucesso_recuperar_senha"]);
-  }
-
-  exit();
-
+  recuperarSenha($email, $confirmarEmail);
 }
 
 ?>
