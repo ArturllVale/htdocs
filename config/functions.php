@@ -313,10 +313,6 @@ function enviarLinkRecuperacao($email, $linkRecuperacao)
 
         // Envia o e-mail
         $mail->send();
-
-        echo 'E-mail enviado com sucesso!';
-    } catch (Exception $e) {
-        echo "Erro no envio do e-mail: {$mail->ErrorInfo}";
     }
 }
 
