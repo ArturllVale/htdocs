@@ -88,40 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST["senha"];
     $confirmarSenha = $_POST["confirmarSenha"];
     $token = $_POST["token"];
-
-    // Adicione lógica para verificar o valor de web_auth_token_enabled
-    $web_auth_token_enabled = verificarToken($token);
-
-    if ($web_auth_token_enabled == 1) {
-        // Exibe um alerta e redireciona para a página index
-        echo '<script>alert("O link de redefinição de senha já foi utilizado."); window.location.href = "index.php";</script>';
-        exit();
-    }
-    // Verifica se a senha tem mais de 4 dígitos
-    if (strlen($senha) <= 4) {
-      $_SESSION["erro_redefinir_senha"] = 'A senha deve ter mais de 4 dígitos.';
-      echo '<script>alert("' . $_SESSION["erro_redefinir_senha"] . '");</script>';
-      return;
-    }
-
-    // Verifica se as senhas coincidem
-    if ($senha !== $confirmarSenha) {
-      $_SESSION["erro_redefinir_senha"] = 'As senhas não coincidem.';
-    } else {
-      // Adicione lógica para atualizar a senha na tabela correta com base no token
-      $atualizacaoSucesso = atualizarSenhaComToken($token, $senha);
-
-      if ($atualizacaoSucesso) {
-        // Mensagem de sucesso
-        $_SESSION["sucesso_redefinir_senha"] = 'Senha alterada com sucesso. Faça login com a nova senha.';
-        // Exibe a mensagem de sucesso como um pop-up e redireciona para a página de login
-        echo '<script>alert("' . $_SESSION["sucesso_redefinir_senha"] . '"); window.location.href = "login.php";</script>';
-      } else {
-        $_SESSION["erro_redefinir_senha"] = 'Erro ao redefinir a senha. Tente novamente.';
-        // Exibe a mensagem de erro como um pop-up
-        echo '<script>alert("' . $_SESSION["erro_redefinir_senha"] . '");</script>';
-      }
-    }
+    // Chame a função
+    redefinirSenha($senha, $confirmarSenha, $token);
   }
 }
 
