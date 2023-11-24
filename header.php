@@ -95,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       if ($atualizacaoSucesso) {
         // Redireciona para a página de login após a redefinição bem-sucedida
+        echo "Senha alterada com sucesso!";
         header("Location: login.php");
         exit(); // Adicionado exit() aqui
       } else {

@@ -382,8 +382,8 @@ function gerarToken()
     // Obtém uma string única baseada no tempo atual em microssegundos
     $token = uniqid();
 
-    // Adiciona mais entropia ao token usando uma função de hash
-    $token .= hash('sha256', random_bytes(32));
+    // Gera um token único para a recuperação de senha
+    $token = substr(hash('sha256', random_bytes(32)), 0, 17);
 
     return $token;
 }
@@ -417,7 +417,7 @@ function atualizarSenhaComToken($token, $novaSenha)
 
     // Atualiza a senha na tabela login com base no email
     $stmtSenha = $conexao->prepare("UPDATE login SET user_pass = ? WHERE email = ?");
-    
+
     // Verifica se a preparação da consulta foi bem-sucedida
     if ($stmtSenha === false) {
         return false;
