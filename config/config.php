@@ -12,8 +12,8 @@ define('DISCORD_WEBHOOK_URL',   'https://discord.com/api/webhooks/SEU_WEBHOOK_ID
 define('ENVIO_DISCORD_ATIVADO', false);					// Defina como true para ativar ou false para desativar
 														// o envio de Mensagem de nova conta no Servidor do Discord.
 // Configuração do hCaptcha
-define('DATA_SITEKEY',          'd599cdb7-dc4c-43da-b266-bcf11ff1a5c2'); // Site Key gerado no hCaptcha
-define('SECRET_KEY',            'ES_35106de31fe04cd59b71adec1ddfc139');    // Chave secreta gerada no site hCaptcha
+define('DATA_SITEKEY',          'd599cdb7-dc4c-43da-b266-bcf11ff1a5c2');	// Site Key gerado no hCaptcha
+define('SECRET_KEY',            'ES_35106de31fe04cd59b71adec1ddfc139');		// Chave secreta gerada no site hCaptcha
 
 // Configurações de e-mail para recuperação de senha
 define('SMTP_HOST',             'sandbox.smtp.mailtrap.io');
