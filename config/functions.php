@@ -348,14 +348,14 @@ function recuperarSenha($email, $confirmarEmail)
     // Gera um token único para a recuperação de senha
     $token = gerarToken();
 
-    // Salva o token no banco de dados, juntamente com o e-mail e um timestamp para expiração
-    $sql = "INSERT INTO tokens_recuperacao_senha (email, token, timestamp) VALUES (?, ?, NOW())";
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("ss", $email, $token);
-    $stmt->execute();
+    // Atualiza a tabela login com o token gerado e a flag web_auth_token_enabled para 0
+    $sqlUpdateToken = "UPDATE login SET web_auth_token = ?, web_auth_token_enabled = 0 WHERE email = ?";
+    $stmtUpdateToken = $conexao->prepare($sqlUpdateToken);
+    $stmtUpdateToken->bind_param("ss", $token, $email);
+    $stmtUpdateToken->execute();
 
     // Configurações do link de recuperação
-    $linkRecuperacao = "https://lseyvwh2.srv-108-181-92-76.webserverhost.top/recuperar.php?token=$token";
+    $linkRecuperacao = "https://lseyvwh2.srv-108-181-92-76.webserverhost.top/recuperar_senha.php?token=$token";
 
     // Envia o e-mail com o link de recuperação
     enviarLinkRecuperacao($email, $linkRecuperacao);
@@ -396,15 +396,15 @@ function atualizarSenhaComToken($token, $novaSenha)
         return false;
     }
 
-    // Busca o email associado ao token na tabela de tokens
-    $stmtToken = $conexao->prepare("SELECT email FROM tokens_recuperacao_senha WHERE token = ?");
+    // Busca o email associado ao token na tabela login
+    $stmtToken = $conexao->prepare("SELECT email FROM login WHERE web_auth_token = ? AND web_auth_token_enabled = 0");
     $stmtToken->bind_param("s", $token);
     $stmtToken->execute();
     $resultToken = $stmtToken->get_result();
 
-    // Verifica se o token existe
+    // Verifica se o token existe e não foi utilizado
     if ($resultToken->num_rows === 0) {
-        // Token não encontrado, trata como erro
+        // Token não encontrado ou já utilizado, trata como erro
         return false;
     }
 
@@ -412,7 +412,7 @@ function atualizarSenhaComToken($token, $novaSenha)
     $rowToken = $resultToken->fetch_assoc();
     $email = $rowToken['email'];
 
-    // Atualiza a senha na tabela de login com base no email
+    // Atualiza a senha na tabela login com base no email
     $stmtSenha = $conexao->prepare("UPDATE login SET user_pass = ? WHERE email = ?");
     
     // Verifica se a preparação da consulta foi bem-sucedida
@@ -420,16 +420,16 @@ function atualizarSenhaComToken($token, $novaSenha)
         return false;
     }
 
-    // Atualiza a senha na tabela de login sem gerar a senha hash
+    // Atualiza a senha na tabela login sem gerar a senha hash
     $stmtSenha->bind_param("ss", $novaSenha, $email);
     $resultado = $stmtSenha->execute();
 
     // Verifica se a execução foi bem-sucedida
     if ($resultado) {
-        // Remove o token da tabela de tokens após a atualização bem-sucedida
-        $stmtRemoverToken = $conexao->prepare("DELETE FROM tokens_recuperacao_senha WHERE token = ?");
-        $stmtRemoverToken->bind_param("s", $token);
-        $stmtRemoverToken->execute();
+        // Atualiza a flag web_auth_token_enabled para indicar que o token foi utilizado
+        $stmtAtualizarToken = $conexao->prepare("UPDATE login SET web_auth_token_enabled = 1 WHERE email = ?");
+        $stmtAtualizarToken->bind_param("s", $email);
+        $stmtAtualizarToken->execute();
 
         return true;
     } else {
