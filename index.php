@@ -17,7 +17,7 @@ include "header.php";
           id="acceptCookiesButton" class="btn btn-primary btn-sm">Aceitar</button></p>
     </div>
   </div>
+  <script src="js/cookies.js"></script>
   <?php
   include "footer.php";
   ?>
-  <script src="js/cookies.js"></script>
