@@ -74,35 +74,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
   cadastrar($usuario_c, $senha_c, $confirmarsenha_c, $email, $genero);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit'] == 'recuperarSenha') {
-  $email = $_POST["email"];
-  $confirmarEmail = $_POST["confirmarEmail"];
-  recuperarSenha($email, $confirmarEmail);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit'] == 'Redefinir Senha') {
-  $senha = $_POST["senha"];
-  $confirmarSenha = $_POST["confirmarSenha"];
-  $token = $_POST["token"];
-
-  // Verifica se as senhas coincidem
-  if ($senha !== $confirmarSenha) {
-      $_SESSION["erro_redefinir_senha"] = 'As senhas não coincidem.';
-  } else {
-      // Adicione lógica para atualizar a senha no banco de dados com base no token
-      if (atualizarSenhaComToken($token, $senha)) {
-          // Redireciona para a página de login após a redefinição bem-sucedida
-          header("Location: login.php");
-          exit();
-      } else {
-          $_SESSION["erro_redefinir_senha"] = 'Erro ao redefinir a senha. Tente novamente.';
-      }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (isset($_POST['submit']) && $_POST['submit'] == 'recuperarSenha') {
+      $email = $_POST["email"];
+      $confirmarEmail = $_POST["confirmarEmail"];
+      recuperarSenha($email, $confirmarEmail);
   }
 
-  // Redireciona de volta para a página de recuperação com o token
-  header("Location: recuperar_senha.php?token=$token");
-  exit();
+  if (isset($_POST['submit']) && $_POST['submit'] == 'Redefinir Senha') {
+      $senha = $_POST["senha"];
+      $confirmarSenha = $_POST["confirmarSenha"];
+      $token = $_POST["token"];
+
+      // Verifica se as senhas coincidem
+      if ($senha !== $confirmarSenha) {
+          $_SESSION["erro_redefinir_senha"] = 'As senhas não coincidem.';
+      } else {
+          // Adicione lógica para atualizar a senha no banco de dados com base no token
+          $atualizacaoSucesso = atualizarSenhaComToken($token, $senha);
+
+          if ($atualizacaoSucesso) {
+              // Redireciona para a página de login após a redefinição bem-sucedida
+              header("Location: login.php");
+              exit();
+          } else {
+              $_SESSION["erro_redefinir_senha"] = 'Erro ao redefinir a senha. Tente novamente.';
+          }
+      }
+
+      // Redireciona de volta para a página de recuperação com o token
+      header("Location: recuperar_senha.php?token=$token");
+      exit();
+  }
 }
+
 ?>
 
 <!DOCTYPE html>
