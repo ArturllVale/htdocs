@@ -396,20 +396,44 @@ function atualizarSenhaComToken($token, $novaSenha)
         return false;
     }
 
-    // Atualiza a senha na tabela login com base no token
-    $sql = "UPDATE login SET user_pass = ? WHERE token = ?";
-    $stmt = $conexao->prepare($sql);
+    // Busca o email associado ao token na tabela de tokens
+    $stmtToken = $conexao->prepare("SELECT email FROM tokens_recuperacao_senha WHERE token = ?");
+    $stmtToken->bind_param("s", $token);
+    $stmtToken->execute();
+    $resultToken = $stmtToken->get_result();
 
-    // Verifica se a preparação da consulta foi bem-sucedida
-    if ($stmt === false) {
+    // Verifica se o token existe
+    if ($resultToken->num_rows === 0) {
+        // Token não encontrado, trata como erro
         return false;
     }
 
-    $stmt->bind_param("ss", $novaSenha, $token);
-    $resultado = $stmt->execute();
+    // Obtém o email associado ao token
+    $rowToken = $resultToken->fetch_assoc();
+    $email = $rowToken['email'];
+
+    // Atualiza a senha na tabela de login com base no email
+    $stmtSenha = $conexao->prepare("UPDATE login SET user_pass = ? WHERE email = ?");
+    
+    // Verifica se a preparação da consulta foi bem-sucedida
+    if ($stmtSenha === false) {
+        return false;
+    }
+
+    // Gera a senha hash
+    $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+
+    // Atualiza a senha na tabela de login
+    $stmtSenha->bind_param("ss", $senhaHash, $email);
+    $resultado = $stmtSenha->execute();
 
     // Verifica se a execução foi bem-sucedida
     if ($resultado) {
+        // Remove o token da tabela de tokens após a atualização bem-sucedida
+        $stmtRemoverToken = $conexao->prepare("DELETE FROM tokens_recuperacao_senha WHERE token = ?");
+        $stmtRemoverToken->bind_param("s", $token);
+        $stmtRemoverToken->execute();
+
         return true;
     } else {
         return false;
