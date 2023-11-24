@@ -80,7 +80,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmarEmail = $_POST["confirmarEmail"];
     recuperarSenha($email, $confirmarEmail);
   }
+}
 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['submit']) && $_POST['submit'] == 'redefinirSenha') {
     $senha = $_POST["senha"];
     $confirmarSenha = $_POST["confirmarSenha"];
