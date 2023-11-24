@@ -75,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit'] == 'recuperarSenha') {
+  $conexao = conectarBanco();
   $email = $_POST["email"];
   $confirmarEmail = $_POST["confirmarEmail"];
 
@@ -82,7 +83,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
   if ($conexao === null) {
     die("Erro na conexão com o banco de dados.");
   }
-
 
   // Verifica se os campos de e-mail coincidem
   if ($email !== $confirmarEmail) {

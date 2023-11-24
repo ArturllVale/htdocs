@@ -365,7 +365,7 @@ function recuperarSenha($email, $confirmarEmail)
     $stmt->execute();
 
     // Configurações do link de recuperação
-    $linkRecuperacao = "module/resetar.php?token=$token";
+    $linkRecuperacao = "recuperar.php?token=$token";
 
     // Envia o e-mail com o link de recuperação
     enviarLinkRecuperacao($email, $linkRecuperacao);
