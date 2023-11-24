@@ -288,32 +288,32 @@ function enviarLinkRecuperacao($email, $linkRecuperacao)
     // Instancie o objeto PHPMailer
     $mail = new PHPMailer(true);
 
-    try {
-        // Configurações do servidor SMTP
-        $mail->isSMTP();
-        $mail->Host = SMTP_HOST;
-        $mail->SMTPAuth = true;
-        $mail->Username = SMTP_USERNAME;
-        $mail->Password = SMTP_PASSWORD;
-        $mail->SMTPSecure = SMTP_SECURE;
-        $mail->Port = SMTP_PORT;
 
-        // Configurações do e-mail
-        $mail->CharSet = 'UTF-8';
-        $mail->Encoding = 'base64'; // ou 'quoted-printable'
-        $mail->setFrom(EMAIL_FROM, SENDER_NAME);
-        $mail->addAddress($email);
-        $mail->Subject = 'Recuperar Senha MeuRO';
-        $mail->Body = 'Olá,';
-        $mail->Body .= '<p>Clique no link a seguir para recuperar sua senha:</p>';
-        $mail->Body .= '<p><a href="' . $linkRecuperacao . '">Clique Aqui</a> para recuperar sua senha</p>';
-        $mail->Body .= '<p>Atenciosamente,</p>';
-        $mail->Body .= '<p>Meu RO Online</p>';
+    // Configurações do servidor SMTP
+    $mail->isSMTP();
+    $mail->Host = SMTP_HOST;
+    $mail->SMTPAuth = true;
+    $mail->Username = SMTP_USERNAME;
+    $mail->Password = SMTP_PASSWORD;
+    $mail->SMTPSecure = SMTP_SECURE;
+    $mail->Port = SMTP_PORT;
+
+    // Configurações do e-mail
+    $mail->CharSet = 'UTF-8';
+    $mail->Encoding = 'base64'; // ou 'quoted-printable'
+    $mail->setFrom(EMAIL_FROM, SENDER_NAME);
+    $mail->addAddress($email);
+    $mail->Subject = 'Recuperar Senha MeuRO';
+    $mail->Body = 'Olá,';
+    $mail->Body .= '<p>Clique no link a seguir para recuperar sua senha:</p>';
+    $mail->Body .= '<p><a href="' . $linkRecuperacao . '">Clique Aqui</a> para recuperar sua senha</p>';
+    $mail->Body .= '<p>Atenciosamente,</p>';
+    $mail->Body .= '<p>Meu RO Online</p>';
 
 
-        // Envia o e-mail
-        $mail->send();
-    }
+    // Envia o e-mail
+    $mail->send();
+
 }
 
 function recuperarSenha($email, $confirmarEmail)
