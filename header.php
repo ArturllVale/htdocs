@@ -80,6 +80,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
   recuperarSenha($email, $confirmarEmail);
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit'] == 'Redefinir Senha') {
+  $senha = $_POST["senha"];
+  $confirmarSenha = $_POST["confirmarSenha"];
+  $token = $_POST["token"];
+
+  // Verifica se as senhas coincidem
+  if ($senha !== $confirmarSenha) {
+    $_SESSION["erro_redefinir_senha"] = 'As senhas não coincidem.';
+    header("Location: recuperar_senha.php?token=$token");
+    exit();
+  }
+
+  // Adicione lógica para atualizar a senha no banco de dados com base no token
+  if (atualizarSenhaComToken($token, $senha)) {
+    // Redireciona para a página de login ou outra página após a redefinição bem-sucedida
+    header("Location: login.php");
+    exit();
+  } else {
+    $_SESSION["erro_redefinir_senha"] = 'Erro ao redefinir a senha. Tente novamente.';
+    header("Location: recuperar_senha.php?token=$token");
+    exit();
+  }
+} else {
+  // Redireciona para a página inicial ou outra página em caso de acesso incorreto
+  header("Location: index.php");
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>

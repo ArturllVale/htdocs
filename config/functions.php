@@ -385,4 +385,29 @@ function gerarToken()
     return $token;
 }
 
+function atualizarSenhaComToken($token, $novaSenha)
+{
+    iniciarSessao();
+
+    $conexao = conectarBanco();
+
+    // Verifica se a conexão com o banco de dados foi estabelecida
+    if ($conexao === null) {
+        return false;
+    }
+
+    // Atualiza a senha na tabela login com base no token
+    $sql = "UPDATE login SET user_pass = ? WHERE token = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("ss", $novaSenha, $token);
+    $resultado = $stmt->execute();
+
+    // Verifica se a atualização foi bem-sucedida
+    if ($resultado) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 ?>
