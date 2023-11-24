@@ -27,7 +27,9 @@ require "header.php";
                     </div>
                     <div class="row">
                         <div class="col text-end">
-                        <button type="submit" name="submit" value="redefinirSenha" class="btn btn-primary">Redefinir Senha</button>
+                            <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>">
+                            <button type="submit" name="submit" value="redefinirSenha" class="btn btn-primary">Redefinir
+                                Senha</button>
                         </div>
                     </div>
                 </form>

@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['submit']) && $_POST['submit'] == 'redefinirSenha') {
     $senha = $_POST["senha"];
     $confirmarSenha = $_POST["confirmarSenha"];
-    $token = $_GET["token"];
+    $token = $_POST["token"];
 
     // Verifica se as senhas coincidem
     if ($senha !== $confirmarSenha) {
