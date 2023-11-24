@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
 
   // Verificar hCaptcha
   $hCaptchaResponse = $_POST['h-captcha-response'];
-  $hCaptchaSecretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
+  $hCaptchaSecretKey = SECRET_KEY;
   $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
   $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
 
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['submite'] == 'registro') {
   // Lógica pra função de cadastro
   // Verifique o hCaptcha
-  $secretKey = 'ES_35106de31fe04cd59b71adec1ddfc139';
+  $secretKey = SECRET_KEY;
   $response = $_POST['h-captcha-response'];
   $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
   $verification = json_decode(file_get_contents($verifyURL));
