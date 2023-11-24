@@ -470,7 +470,7 @@ function atualizarSenhaComToken($token, $novaSenha)
     }
 }
 
-function redefinirSenha()
+function redefinirSenha($senha, $confirmarSenha, $token)
 {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['submit']) && $_POST['submit'] == 'redefinirSenha') {
