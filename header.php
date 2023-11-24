@@ -78,11 +78,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
   $email = $_POST["email"];
   $confirmarEmail = $_POST["confirmarEmail"];
 
+  // Verifica se a conexão com o banco de dados foi estabelecida
+  if ($conexao === null) {
+    die("Erro na conexão com o banco de dados.");
+  }
+
+
   // Verifica se os campos de e-mail coincidem
   if ($email !== $confirmarEmail) {
-      $_SESSION["erro_recuperar_senha"] = 'Os campos de e-mail não coincidem.';
-      header("Location: recuperar.php");
-      exit();
+    $_SESSION["erro_recuperar_senha"] = 'Os campos de e-mail não coincidem.';
+    header("Location: recuperar.php");
+    exit();
   }
 
   // Consulta ao banco de dados para verificar se o e-mail existe
@@ -93,9 +99,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['s
   $resultado = $stmt->get_result();
 
   if ($resultado->num_rows === 0) {
-      $_SESSION["erro_recuperar_senha"] = 'O e-mail fornecido não está registrado.';
-      header("Location: recuperar_senha.php");
-      exit();
+    $_SESSION["erro_recuperar_senha"] = 'O e-mail fornecido não está registrado.';
+    header("Location: recuperar_senha.php");
+    exit();
   }
 
   // Gera um token único para a recuperação de senha

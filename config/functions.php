@@ -380,7 +380,6 @@ function recuperarSenha($email, $confirmarEmail)
     $conexao->close();
 }
 
-
 function gerarToken()
 {
     // Obtém uma string única baseada no tempo atual em microssegundos
@@ -391,6 +390,5 @@ function gerarToken()
 
     return $token;
 }
-
 
 ?>
