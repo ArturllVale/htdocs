@@ -20,12 +20,12 @@ require "header.php";
 
                 <form action="recuperar.php" method="post" id="recuperarSenha">
                     <div class="input-group mb-2">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
+                        <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
                         <input type="email" class="form-control" placeholder="E-mail" name="email" aria-label="E-mail"
                             aria-describedby="basic-addon1" id="emailInput" required>
                     </div>
                     <div class="input-group mb-2">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
+                        <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
                         <input type="email" class="form-control" placeholder="Confirmar E-mail" name="confirmarEmail"
                             aria-label="Confirmar E-mail" aria-describedby="basic-addon1" required>
                     </div>
