@@ -76,35 +76,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['submit']) && $_POST['submit'] == 'recuperarSenha') {
-      $email = $_POST["email"];
-      $confirmarEmail = $_POST["confirmarEmail"];
-      recuperarSenha($email, $confirmarEmail);
+    $email = $_POST["email"];
+    $confirmarEmail = $_POST["confirmarEmail"];
+    recuperarSenha($email, $confirmarEmail);
   }
 
   if (isset($_POST['submit']) && $_POST['submit'] == 'Redefinir Senha') {
-      $senha = $_POST["senha"];
-      $confirmarSenha = $_POST["confirmarSenha"];
-      $token = $_POST["token"];
+    $senha = $_POST["senha"];
+    $confirmarSenha = $_POST["confirmarSenha"];
+    $token = $_POST["token"];
 
-      // Verifica se as senhas coincidem
-      if ($senha !== $confirmarSenha) {
-          $_SESSION["erro_redefinir_senha"] = 'As senhas não coincidem.';
+    // Verifica se as senhas coincidem
+    if ($senha !== $confirmarSenha) {
+      $_SESSION["erro_redefinir_senha"] = 'As senhas não coincidem.';
+    } else {
+      // Adicione lógica para atualizar a senha na tabela correta com base no token
+      $atualizacaoSucesso = atualizarSenhaComToken($token, $senha);
+
+      if ($atualizacaoSucesso) {
+        // Redireciona para a página de login após a redefinição bem-sucedida
+        header("Location: login.php");
+        exit(); // Adicionado exit() aqui
       } else {
-          // Adicione lógica para atualizar a senha na tabela correta com base no token
-          $atualizacaoSucesso = atualizarSenhaComToken($token, $senha);
-
-          if ($atualizacaoSucesso) {
-              // Redireciona para a página de login após a redefinição bem-sucedida
-              header("Location: login.php");
-              exit();
-          } else {
-              $_SESSION["erro_redefinir_senha"] = 'Erro ao redefinir a senha. Tente novamente.';
-          }
+        $_SESSION["erro_redefinir_senha"] = 'Erro ao redefinir a senha. Tente novamente.';
       }
+    }
 
-      // Redireciona de volta para a página de recuperação com o token
-      header("Location: recuperar_senha.php?token=$token");
-      exit();
+    // Redireciona de volta para a página de recuperação com o token
+    header("Location: recuperar_senha.php?token=$token");
+    exit();
   }
 }
 
