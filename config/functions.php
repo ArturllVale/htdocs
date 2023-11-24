@@ -37,75 +37,31 @@ function indexLogin($usuario, $senha, $salvarUsuario)
         $usuario = $_POST["usuario"];
         $senha = $_POST["senha"];
         $salvarUsuario = isset($_POST["salvarUsuario"]);
-
+      
         // Verificar hCaptcha
         $hCaptchaResponse = $_POST['h-captcha-response'];
         $hCaptchaSecretKey = SECRET_KEY;
         $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
         $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
-
+      
         if (!$hCaptchaVerification->success) {
-            // Tratar erro de hCaptcha não verificado
-            $_SESSION["erro_login"] = 'Falha no login devido ao Captcha. Tente novamente.';
-            header("Location: index.php");
-            exit();
+          // Tratar erro de hCaptcha não verificado
+          $_SESSION["erro_login"] = 'Falha no login devido ao Captcha. Tente novamente.';
+          header("Location: index.php");
+          exit();
         }
-
+      
         if (verificar_login($usuario, $senha, $salvarUsuario)) {
-            $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
-            $_SESSION["logado"] = true;
-            header("Location: index.php");
-            exit();
+          $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
+          $_SESSION["logado"] = true;
+          header("Location: index.php");
+          exit();
         } else {
-            $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
-            header("Location: index.php");
-            exit();
+          $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
+          header("Location: index.php");
+          exit();
         }
-    }
-}
-
-function processaRegistro($post)
-{
-    if ($post["REQUEST_METHOD"] == "POST" && isset($post['submite']) && $post['submite'] == 'registro') {
-        // Lógica pra função de cadastro
-        // Verifique o hCaptcha
-        $secretKey = SECRET_KEY;
-        $response = $post['h-captcha-response'];
-        $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
-        $verification = json_decode(file_get_contents($verifyURL));
-
-        if (!$verification->success) {
-            // Tratar erro de hCaptcha não verificado
-            echo "Erro de verificação do hCaptcha. Tente novamente.";
-            header("Location: cadastro.php");
-            exit();
-        }
-
-        // Obtenha os dados do formulário
-        $usuario_c = isset($post["usuario_c"]) ? $post["usuario_c"] : "";
-        $senha_c = isset($post["senha_c"]) ? $post["senha_c"] : "";
-        $confirmarsenha_c = isset($post["confirmarsenha_c"]) ? $post["confirmarsenha_c"] : "";
-        $email = isset($post["email"]) ? $post["email"] : "";
-        $genero = isset($post["genero"]) ? $post["genero"] : "";
-
-        // Validar os dados
-        if (empty($usuario_c) || empty($senha_c) || empty($confirmarsenha_c) || empty($email) || empty($genero)) {
-            // Tratar erro de dados incompletos
-            echo "Preencha todos os campos do formulário.";
-            header("Location: cadastro.php");
-            exit();
-        }
-
-        // Verificar se as senha_cs coincidem
-        if ($senha_c !== $confirmarsenha_c) {
-            // Tratar erro de senha_cs não coincidentes
-            echo "As senhas não coincidem. Tente novamente.";
-            exit();
-        }
-
-        // Chamar a função cadastrar
-        cadastrar($usuario_c, $senha_c, $confirmarsenha_c, $email, $genero);
-    }
+      }
 }
 
 function getLastLoginAttemptTime($usuario, $conexao)
