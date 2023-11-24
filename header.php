@@ -92,7 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     redefinirSenha($senha, $confirmarSenha, $token);
   }
 }
-
 ?>
 
 <!DOCTYPE html>
