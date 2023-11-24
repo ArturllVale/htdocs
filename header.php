@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     recuperarSenha($email, $confirmarEmail);
   }
 
-  if (isset($_POST['submit']) && $_POST['submit'] == 'Redefinir Senha') {
+  if (isset($_POST['submit']) && $_POST['submit'] == 'redefinirSenha') {
     $senha = $_POST["senha"];
     $confirmarSenha = $_POST["confirmarSenha"];
     $token = $_POST["token"];
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Redireciona de volta para a página de recuperação com o token
-    header("Location: recuperar_senha.php?token=$token");
+    header("Location: index.php");
     exit();
   }
 }

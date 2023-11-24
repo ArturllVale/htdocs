@@ -14,7 +14,7 @@ require "header.php";
                     dapibus nisi. Suspendisse tristique sodales ultrices. Donec nec ultrices lorem.</p>
             </div>
             <div class="col-md-6 index-direita">
-                <form action="recuperar_senha.php" method="post" id="Redefinir Senha">
+                <form action="recuperar_senha.php" method="post" id="redefinirSenha">
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                         <input type="password" class="form-control" placeholder="Nova Senha" name="senha"
@@ -27,7 +27,7 @@ require "header.php";
                     </div>
                     <div class="row">
                         <div class="col text-end">
-                        <button type="submit" name="submit" value="Redefinir Senha" class="btn btn-primary">Redefinir Senha</button>
+                        <button type="submit" name="submit" value="redefinirSenha" class="btn btn-primary">Redefinir Senha</button>
                         </div>
                     </div>
                 </form>
