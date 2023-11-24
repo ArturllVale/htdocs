@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['submite'] == 'registro') {
-  processaRegistro($_POST);
+  processaRegistro($post);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
