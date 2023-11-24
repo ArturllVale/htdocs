@@ -10,13 +10,13 @@ define('ENVIO_DISCORD_ATIVADO', false);     // Defina como true para ativar ou f
 define('DISCORD_WEBHOOK_URL', 'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_TOKEN');
 
 // Configurações de e-mail
-define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_USERNAME', 'hakahaybr@gmail.com');
+define('SMTP_HOST', 'server-web14.dal.pz.samtooweb.com');
+define('SMTP_USERNAME', 'noreply@mundorag.com.br');
 define('SMTP_PASSWORD', 'Artur@32291143');
 define('SMTP_SECURE', 'tls');
-define('SMTP_PORT', 587);
+define('SMTP_PORT', 465);
 
 // Informações do remetente
-define('EMAIL_FROM', 'hakahaybr@gmail.com');
-define('SENDER_NAME', 'Lumen');
+define('EMAIL_FROM', 'noreply@mundorag.com.br');
+define('SENDER_NAME', 'MeuRO');
 ?>
