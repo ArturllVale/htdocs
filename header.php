@@ -89,6 +89,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmarSenha = $_POST["confirmarSenha"];
     $token = $_POST["token"];
 
+    // Adicione lógica para verificar o valor de web_auth_token_enabled
+    $web_auth_token_enabled = verificarToken($token);
+
+    if ($web_auth_token_enabled == 1) {
+        // Exibe um alerta e redireciona para a página index
+        echo '<script>alert("O link de redefinição de senha já foi utilizado."); window.location.href = "index.php";</script>';
+        exit();
+    }
+
     // Verifica se as senhas coincidem
     if ($senha !== $confirmarSenha) {
       $_SESSION["erro_redefinir_senha"] = 'As senhas não coincidem.';
@@ -106,7 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Exibe a mensagem de erro como um pop-up
         echo '<script>alert("' . $_SESSION["erro_redefinir_senha"] . '");</script>';
       }
-
     }
   }
 }

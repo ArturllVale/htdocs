@@ -388,6 +388,36 @@ function gerarToken()
     return $token;
 }
 
+function verificarToken($token)
+{
+    iniciarSessao();
+
+    $conexao = conectarBanco();
+
+    // Verifica se a conexão com o banco de dados foi estabelecida
+    if ($conexao === null) {
+        return false;
+    }
+
+    // Busca o email associado ao token na tabela login
+    $stmtToken = $conexao->prepare("SELECT web_auth_token_enabled FROM login WHERE web_auth_token = ?");
+    $stmtToken->bind_param("s", $token);
+    $stmtToken->execute();
+    $resultToken = $stmtToken->get_result();
+
+    // Verifica se o token existe
+    if ($resultToken->num_rows === 0) {
+        // Token não encontrado, trata como erro
+        return false;
+    }
+
+    // Obtém o valor de web_auth_token_enabled associado ao token
+    $rowToken = $resultToken->fetch_assoc();
+    $web_auth_token_enabled = $rowToken['web_auth_token_enabled'];
+
+    return $web_auth_token_enabled;
+}
+
 function atualizarSenhaComToken($token, $novaSenha)
 {
     iniciarSessao();
