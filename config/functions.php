@@ -399,10 +399,16 @@ function atualizarSenhaComToken($token, $novaSenha)
     // Atualiza a senha na tabela login com base no token
     $sql = "UPDATE login SET user_pass = ? WHERE token = ?";
     $stmt = $conexao->prepare($sql);
+
+    // Verifica se a preparação da consulta foi bem-sucedida
+    if ($stmt === false) {
+        return false;
+    }
+
     $stmt->bind_param("ss", $novaSenha, $token);
     $resultado = $stmt->execute();
 
-    // Verifica se a atualização foi bem-sucedida
+    // Verifica se a execução foi bem-sucedida
     if ($resultado) {
         return true;
     } else {

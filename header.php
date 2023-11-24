@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($senha !== $confirmarSenha) {
           $_SESSION["erro_redefinir_senha"] = 'As senhas não coincidem.';
       } else {
-          // Adicione lógica para atualizar a senha no banco de dados com base no token
+          // Adicione lógica para atualizar a senha na tabela correta com base no token
           $atualizacaoSucesso = atualizarSenhaComToken($token, $senha);
 
           if ($atualizacaoSucesso) {
