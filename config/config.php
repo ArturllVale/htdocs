@@ -15,7 +15,7 @@ define('ENVIO_DISCORD_ATIVADO', 	false);					// Defina como true para ativar ou 
 define('DATA_SITEKEY',          	'd599cdb7-dc4c-43da-b266-bcf11ff1a5c2');	// Site Key gerado no hCaptcha
 define('SECRET_KEY',            	'ES_35106de31fe04cd59b71adec1ddfc139');		// Chave secreta gerada no site hCaptcha
 
-// Configurações de e-mail para recuperação de senha
+// Configurações de SMTP para recuperação de senha
 define('SMTP_HOST',             	'sandbox.smtp.mailtrap.io');
 define('SMTP_USERNAME',         	'10027ae8e3d6b0');
 define('SMTP_PASSWORD',         	'9a0bd86ebfb996');
