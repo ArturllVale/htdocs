@@ -6,3 +6,5 @@ CREATE TABLE security_log (
     action VARCHAR(255),
     attempts INT DEFAULT 0
 );
+
+ALTER TABLE login ADD cash_coins INT DEFAULT 0

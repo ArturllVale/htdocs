@@ -327,6 +327,25 @@ function obterGroupIdDoBancoDeDados($usuario)
     return $groupId;
 }
 
+function obterAccountIdDoBancoDeDados($usuario)
+{
+    $conexao = conectarBanco();
+
+    // Consulta o banco de dados para obter o account_id do usuário
+    $sql = "SELECT account_id FROM login WHERE userid = ?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $stmt->bind_result($accountId);
+    $stmt->fetch();
+    $stmt->close();
+
+    $conexao->close();
+
+    return $accountId;
+}
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 require 'PHPMailer/src/Exception.php';
@@ -565,5 +584,61 @@ function redefinirSenha($senha, $confirmarSenha, $token)
         }
     }
 }
+
+function processPayment($amount) {
+    // Substitua isso pelos detalhes da sua API
+    $api_key = 'sua_chave_api';
+    $api_secret = 'seu_secreto_api';
+
+    // Crie um novo pagamento
+    $payment = array(
+        'amount' => $amount,
+        'currency' => 'BRL',
+        // Adicione quaisquer outros detalhes necessários aqui
+    );
+
+    // Codifique os dados do pagamento em JSON
+    $data_string = json_encode($payment);
+
+    // Inicie uma nova sessão cURL
+    $ch = curl_init('https://api.pagbank.com/v1/payments');
+
+    // Defina as opções para a sessão cURL
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($data_string),
+        'Authorization: Basic ' . base64_encode($api_key . ':' . $api_secret)
+    ));
+
+    // Execute a sessão cURL e obtenha a resposta
+    $result = curl_exec($ch);
+
+    // Feche a sessão cURL
+    curl_close($ch);
+
+    // Retorne a resposta
+    return $result;
+}
+
+function updateUserPoints($userId, $points) {
+    // Substitua isso pela sua conexão com o banco de dados
+    $conexao = conectarBanco();
+
+    // Prepare a consulta SQL
+    $stmt = $conexao->prepare("UPDATE login SET cash_coins = cash_coins + ? WHERE account_id = ?");
+
+    // Vincule os parâmetros à consulta
+    $stmt->bind_param('ii', $points, $userId);
+
+    // Execute a consulta
+    $stmt->execute();
+
+    // Feche a consulta
+    $stmt->close();
+}
+
 
 ?>
