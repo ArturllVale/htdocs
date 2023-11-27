@@ -42,3 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo '</form>';
 }
 ?>
+<form method="POST">
+    <label for="amount">Quantidade de pontos:</label><br>
+    <input type="number" id="amount" name="amount" min="1" max="10"><br>
+    <input type="submit" value="Comprar">
+</form>
