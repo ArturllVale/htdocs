@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
@@ -42,8 +41,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo '</form>';
 }
 ?>
-<form method="POST">
-    <label for="amount">Quantidade de pontos:</label><br>
-    <input type="number" id="amount" name="amount" min="1" max="10"><br>
-    <input type="submit" value="Comprar">
-</form>
