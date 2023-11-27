@@ -12,11 +12,4 @@ $accountId = obterAccountIdDoBancoDeDados($usuario);
 
 <h1 class="mt-5 mb-3">Recargas</h1>
 
-<form action="processar_pagamento.php" method="post">
-    <div class="mb-3">
-        <label for="valor" class="form-label">Valor do pagamento</label>
-        <input type="number" class="form-control" id="valor" name="valor" min="1" step="any" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+<!-- INICIO DO BOTAO PAGSEGURO --><a href="https://pag.ae/7Z_wu-qTM/button" target="_blank" title="Pagar com PagSeguro"><img src="//assets.pagseguro.com.br/ps-integration-assets/botoes/pagamentos/205x30-pagar.gif" alt="Pague com PagSeguro - é rápido, grátis e seguro!" /></a><!-- FIM DO BOTAO PAGSEGURO -->
