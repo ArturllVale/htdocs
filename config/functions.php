@@ -587,8 +587,8 @@ function redefinirSenha($senha, $confirmarSenha, $token)
 
 function processPayment($amount) {
     // Substitua isso pelos detalhes da sua API
-    $api_key = 'sua_chave_api';
-    $api_secret = 'seu_secreto_api';
+    $api_key = '44E777010D0D5F777495EFAAFD2C37E8';
+    $api_secret = 'app0919036213';
 
     // Crie um novo pagamento
     $payment = array(
