@@ -47,3 +47,18 @@ function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 };
+
+// Lista de URLs das imagens
+var imagens = [
+  'url("../data/bgbox.png")',
+  'url("../data/bgbox2.jpg")',
+  'url("../data/bgbox3.jpg")'
+];
+
+// Função para escolher uma imagem aleatória
+function escolherImagemAleatoria() {
+  return imagens[Math.floor(Math.random() * imagens.length)];
+}
+
+// Aplicar a imagem aleatória ao elemento
+document.querySelector('.index-esquerda').style.backgroundImage = escolherImagemAleatoria();
