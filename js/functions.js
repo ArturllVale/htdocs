@@ -48,17 +48,19 @@ function topFunction() {
     document.documentElement.scrollTop = 0;
 };
 
-// Lista de URLs das imagens
-var imagens = [
-  'url("../data/bgbox.png")',
-  'url("../data/bgbox2.jpg")',
-  'url("../data/bgbox3.jpg")'
-];
+// Lista de classes
+var classes = ['bg1', 'bg2', 'bg3'];
 
-// Função para escolher uma imagem aleatória
-function escolherImagemAleatoria() {
-  return imagens[Math.floor(Math.random() * imagens.length)];
+// Função para escolher uma classe aleatória
+function escolherClasseAleatoria() {
+  return classes[Math.floor(Math.random() * classes.length)];
 }
 
-// Aplicar a imagem aleatória ao elemento index
-document.querySelector('.index-esquerda::before').style.backgroundImage = escolherImagemAleatoria();
+// Obter o elemento
+var elemento = document.querySelector('.index-esquerda');
+
+// Remover classes existentes
+elemento.classList.remove(...classes);
+
+// Adicionar a classe aleatória
+elemento.classList.add(escolherClasseAleatoria());

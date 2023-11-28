@@ -31,6 +31,18 @@ body {
     z-index: -1; /* Coloca o pseudoelemento atrás do conteúdo do elemento principal */
 }
 
+.bg1::before {
+    background-image: url("../data/bgbox.png");
+}
+
+.bg2::before {
+    background-image: url("../data/bgbox2.jpg");
+}
+
+.bg3::before {
+    background-image: url("../data/bgbox3.jpg");
+}
+
 .index-esquerda h2 {
     text-align: left !important;
 }
