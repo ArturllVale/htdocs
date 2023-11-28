@@ -11,17 +11,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['submite'] == 'registro') {
   // Lógica pra função de cadastro
-  // Verifique o hCaptcha
-  $secretKey = SECRET_KEY;
-  $response = $_POST['h-captcha-response'];
-  $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
-  $verification = json_decode(file_get_contents($verifyURL));
+  if (HCAPTCHA_ATIVO) {
+    // Verifique o hCaptcha
+    $secretKey = SECRET_KEY;
+    $response = $_POST['h-captcha-response'];
+    $verifyURL = "https://hcaptcha.com/siteverify?secret=$secretKey&response=$response";
+    $verification = json_decode(file_get_contents($verifyURL));
 
-  if (!$verification->success) {
-    // Tratar erro de hCaptcha não verificado
-    echo "Erro de verificação do hCaptcha. Tente novamente.";
-    header("Location: cadastro.php");
-    exit();
+    if (!$verification->success) {
+      // Tratar erro de hCaptcha não verificado
+      echo "Erro de verificação do hCaptcha. Tente novamente.";
+      header("Location: cadastro.php");
+      exit();
+    }
   }
 
   // Obtenha os dados do formulário
@@ -30,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submite']) && $_POST['
   $confirmarsenha_c = isset($_POST["confirmarsenha_c"]) ? $_POST["confirmarsenha_c"] : "";
   $email = isset($_POST["email"]) ? $_POST["email"] : "";
   $genero = isset($_POST["genero"]) ? $_POST["genero"] : "";
-
 
   // Validar os dados
   if (empty($usuario_c) || empty($senha_c) || empty($confirmarsenha_c) || empty($email) || empty($genero)) {

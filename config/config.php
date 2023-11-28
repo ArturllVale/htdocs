@@ -6,6 +6,7 @@ define('DB_NAME',               	'ragnarok');			// Nome do Banco de dados
 
 define('SITE_TITLE',            	'Flex CP');				// Título do Site
 define('SITE_URL',              	'https://lseyvwh2.srv-108-181-92-76.webserverhost.top'); // Url do site
+define('HCAPTCHA_ATIVO', 			false); 				// Defina como false para desativar o hCaptcha
 
 // Webhooks do Discord	
 define('DISCORD_WEBHOOK_URL',   	'https://discord.com/api/webhooks/SEU_WEBHOOK_ID/SEU_TOKEN');
