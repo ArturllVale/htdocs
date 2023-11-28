@@ -39,7 +39,7 @@ function scrollFunction() {
         topBtn.style.opacity = "0";
         setTimeout(function() {
             topBtn.style.display = "none";
-        }, 300); // Tempo correspondente à transição CSS
+        }, 400); // Tempo correspondente à transição CSS
     }
 };
 
