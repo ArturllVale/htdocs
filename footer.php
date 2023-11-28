@@ -3,13 +3,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/functions.js"></script>
 <script>
-        // Mensagem de recuperar senha com sucesso
-        <?php
-        if (isset($_SESSION["sucesso_recuperar_senha"])) {
-            echo 'alert("' . $_SESSION["sucesso_recuperar_senha"] . '");';
-            unset($_SESSION["sucesso_recuperar_senha"]);
-        }
-        ?>
-    </script>
+    // Mensagem de recuperar senha com sucesso
+    <?php
+    if (isset($_SESSION["sucesso_recuperar_senha"])) {
+        echo 'alert("' . $_SESSION["sucesso_recuperar_senha"] . '");';
+        unset($_SESSION["sucesso_recuperar_senha"]);
+    }
+    ?>
+</script>
 </body>
 </html>

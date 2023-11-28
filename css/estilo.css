@@ -25,11 +25,22 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("../data/bgbox.png");
     background-position: center;
     background-size: cover;
     border-radius: 10px 0px 0px 10px;
     z-index: -1; /* Coloca o pseudoelemento atrás do conteúdo do elemento principal */
+}
+
+.bg1::before {
+    background-image: url("../data/bgbox.png");
+}
+
+.bg2::before {
+    background-image: url("../data/bgbox2.jpg");
+}
+
+.bg3::before {
+    background-image: url("../data/bgbox3.jpg");
 }
 
 .index-esquerda h2 {

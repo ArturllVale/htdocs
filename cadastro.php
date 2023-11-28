@@ -61,9 +61,13 @@ include "header.php";
               <label class="form-check-label" for="generoMulher">Feminino</label>
             </div>
           </div>
-          <div class="mb-3">
-            <div class="h-captcha" data-sitekey="<?php echo DATA_SITEKEY; ?>"></div>
-          </div>
+          <?php
+          if (HCAPTCHA_ATIVO) {
+            echo '<div class="mb-3">';
+            echo '<div class="h-captcha" data-sitekey="<?php echo DATA_SITEKEY; ?>"></div>';
+            echo '</div>';
+          }
+          ?>
           <div class="text-end">
             <button type="submit" name="submite" value="registro" class="btn btn-primary">Registrar</button>
           </div>

@@ -38,17 +38,19 @@ function indexLogin($usuario, $senha, $salvarUsuario)
         $senha = $_POST["senha"];
         $salvarUsuario = isset($_POST["salvarUsuario"]);
       
-        // Verificar hCaptcha
-        $hCaptchaResponse = $_POST['h-captcha-response'];
-        $hCaptchaSecretKey = SECRET_KEY;
-        $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
-        $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
-      
-        if (!$hCaptchaVerification->success) {
-          // Tratar erro de hCaptcha não verificado
-          $_SESSION["erro_login"] = 'Falha no login devido ao Captcha. Tente novamente.';
-          header("Location: index.php");
-          exit();
+        if (HCAPTCHA_ATIVO) {
+            // Verificar hCaptcha
+            $hCaptchaResponse = $_POST['h-captcha-response'];
+            $hCaptchaSecretKey = SECRET_KEY;
+            $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
+            $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
+          
+            if (!$hCaptchaVerification->success) {
+              // Tratar erro de hCaptcha não verificado
+              $_SESSION["erro_login"] = 'Falha no login devido ao Captcha. Tente novamente.';
+              header("Location: index.php");
+              exit();
+            }
         }
       
         if (verificar_login($usuario, $senha, $salvarUsuario)) {

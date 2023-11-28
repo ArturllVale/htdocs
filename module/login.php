@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="col text-end">
-                         <button type="submit" name="submite" value="login" class="btn btn-primary">Entrar</button>
+                        <button type="submit" name="submite" value="login" class="btn btn-primary">Entrar</button>
                     </div>
                     <p class="index-novaconta">Não possui uma conta? <span class="color-conta"><a href="cadastro">Criar
                                 Agora!</a></span></p>
@@ -45,9 +45,13 @@
                             unset($_SESSION["erro_login"]); ?>
                         </div>
                     <?php endif; ?>
-                    <div class="mb-3">
-                    <div class="h-captcha" data-sitekey="<?php echo DATA_SITEKEY; ?>"></div>
-                    </div>
+                    <?php
+                    if (HCAPTCHA_ATIVO) {
+                        echo '<div class="mb-3">';
+                        echo '<div class="h-captcha" data-sitekey="<?php echo DATA_SITEKEY; ?>"></div>';
+                        echo '</div>';
+                    }
+                    ?>
                     <p style="text-align: center; font-size: 12px;"><a href="recuperar">Esqueceu a senha?</a></p>
                 </div>
             </form>

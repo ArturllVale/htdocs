@@ -5,7 +5,7 @@ function aceitarCookies() {
     document.getElementById("cookieConsentPopup").style.display = "none";
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     var cookieKey = "aceitouCookies";
     if (localStorage.getItem(cookieKey) !== "sim") {
         document.getElementById("cookieConsentPopup").style.display = "block";
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Salvar o nome de usuário no armazenamento local quando o formulário é enviado
-    document.querySelector("form").addEventListener("submit", function() {
+    document.querySelector("form").addEventListener("submit", function () {
         if (salvarUsuarioCheckbox.checked) {
             localStorage.setItem(usuarioKey, usuarioInput.value);
         } else {
