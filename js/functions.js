@@ -60,5 +60,5 @@ function escolherImagemAleatoria() {
   return imagens[Math.floor(Math.random() * imagens.length)];
 }
 
-// Aplicar a imagem aleatória ao elemento
-document.querySelector('.index-esquerda').style.backgroundImage = escolherImagemAleatoria();
+// Aplicar a imagem aleatória ao elemento index
+document.querySelector('.index-esquerda::before').style.backgroundImage = escolherImagemAleatoria();
