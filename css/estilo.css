@@ -214,3 +214,7 @@ h2 {
     padding: 5px !important;
     text-align: center !important;
 }
+
+.morto {
+    color: red;
+}
