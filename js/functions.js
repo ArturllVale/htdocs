@@ -80,7 +80,7 @@ setInterval(function() {
             let col = $(
               '<div class="col">' +
                 '<div class="card" style="width: 18rem;">' +
-                  '<img src="../data/' + data[j].mvpName.toLowerCase() + '.jpg" class="card-img-top ' + (data[j].status === 'MORTO' ? 'grayscale' : '') + '">' +
+                  '<img src="../data/' + data[j].mvpName.toLowerCase() + '.png" class="card-img-top ' + (data[j].status === 'MORTO' ? 'grayscale' : '') + '">' +
                   '<div class="card-body">' +
                     '<h5 class="card-title">' + data[j].mvpName + '</h5>' +
                   '</div>' +
