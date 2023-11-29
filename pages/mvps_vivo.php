@@ -27,7 +27,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
     ?>
 </div>
 <script>
-    setTimeout(function(){
-   location.reload();
-}, 30000);
+//    location.reload();
+//    setTimeout(function () {
+//    }, 30000);
 </script>
