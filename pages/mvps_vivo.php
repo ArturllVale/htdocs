@@ -29,7 +29,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
 <script>
     setInterval(function() {
     $.ajax({
-      url: '../module/buscar_dados.php', // Substitua pelo caminho do seu arquivo PHP
+      url: 'buscar_dados.php', // Substitua pelo caminho do seu arquivo PHP
       type: 'GET',
       success: function(data) {
         // Limpa a tabela
