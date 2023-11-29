@@ -64,3 +64,11 @@ elemento.classList.remove(...classes);
 
 // Adicionar a classe aleatória
 elemento.classList.add(escolherClasseAleatoria());
+
+// Substitua 'url' pela URL do seu endpoint da API
+setInterval(function() {
+    $.get(url, function(data) {
+      // Atualize a tabela aqui
+    });
+  }, 10000);
+  

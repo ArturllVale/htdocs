@@ -37,33 +37,33 @@ function indexLogin($usuario, $senha, $salvarUsuario)
         $usuario = $_POST["usuario"];
         $senha = $_POST["senha"];
         $salvarUsuario = isset($_POST["salvarUsuario"]);
-      
+
         if (HCAPTCHA_ATIVO) {
             // Verificar hCaptcha
             $hCaptchaResponse = $_POST['h-captcha-response'];
             $hCaptchaSecretKey = SECRET_KEY;
             $hCaptchaVerifyUrl = "https://hcaptcha.com/siteverify?secret=$hCaptchaSecretKey&response=$hCaptchaResponse";
             $hCaptchaVerification = json_decode(file_get_contents($hCaptchaVerifyUrl));
-          
+
             if (!$hCaptchaVerification->success) {
-              // Tratar erro de hCaptcha não verificado
-              $_SESSION["erro_login"] = 'Falha no login devido ao Captcha. Tente novamente.';
-              header("Location: index.php");
-              exit();
+                // Tratar erro de hCaptcha não verificado
+                $_SESSION["erro_login"] = 'Falha no login devido ao Captcha. Tente novamente.';
+                header("Location: index.php");
+                exit();
             }
         }
-      
+
         if (verificar_login($usuario, $senha, $salvarUsuario)) {
-          $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
-          $_SESSION["logado"] = true;
-          header("Location: index.php");
-          exit();
+            $_SESSION["sex"] = obterGeneroDoUsuario($usuario);
+            $_SESSION["logado"] = true;
+            header("Location: index.php");
+            exit();
         } else {
-          $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
-          header("Location: index.php");
-          exit();
+            $_SESSION["erro_login"] = 'Falha no login. Tente novamente.';
+            header("Location: index.php");
+            exit();
         }
-      }
+    }
 }
 
 function getLastLoginAttemptTime($usuario, $conexao)
@@ -586,5 +586,23 @@ function redefinirSenha($senha, $confirmarSenha, $token)
         }
     }
 }
+
+function buscarDadosMvpStatus()
+{
+    $conexao = conectarBanco();
+    $sql = "SELECT * FROM mvp_status";
+    $resultado = mysqli_query($conexao, $sql);
+
+    $dados = [];
+    if (mysqli_num_rows($resultado) > 0) {
+        while ($row = mysqli_fetch_assoc($resultado)) {
+            $dados[] = $row;
+        }
+    }
+
+    mysqli_close($conexao);
+    return $dados;
+}
+
 
 ?>
