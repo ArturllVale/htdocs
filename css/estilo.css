@@ -208,6 +208,7 @@ h2 {
 
 .card-title {
     font-size: 15px !important;
+    padding-top: 5px;
 }
 
 .card-body {
