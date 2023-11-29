@@ -7,11 +7,11 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
 }
 ?>
 <h2>MVPs Vivos</h2>
-<div class="row">
+<div class="row" style="justify-content: center;">
     <?php
     $dados = buscarDadosMvpStatus();
     for ($i = 0; $i < count($dados); $i += 4) {
-        echo '<div class="row">';
+        echo '<div class="row" style="text-align: center;">';
         for ($j = $i; $j < $i + 4; $j++) {
             echo '<div class="col">';
             echo '<div class="card" style="width: 10rem;margin-bottom: 1em;">';
