@@ -11,7 +11,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
     <?php
     $dados = buscarDadosMvpStatus();
     for ($i = 0; $i < count($dados); $i += 4) {
-        echo '<div class="row" style="text-align: center;">';
+        echo '<div class="row" style="text-align: -webkit-center;">';
         for ($j = $i; $j < $i + 4; $j++) {
             echo '<div class="col">';
             echo '<div class="card" style="width: 10rem;margin-bottom: 1em;">';
