@@ -1,5 +1,5 @@
 <?php
-require 'functions.php'; // Certifique-se de que este caminho esteja correto
+include "header.php";
 
 $dados = buscarDadosMvpStatus();
 
