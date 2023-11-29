@@ -205,3 +205,12 @@ h2 {
 .grayscale {
     filter: grayscale(100%);
 }
+
+.card-title {
+    font-size: 15px !important;
+}
+
+.card-body {
+    padding: 5px !important;
+    text-align: center !important;
+}
