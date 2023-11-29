@@ -14,7 +14,7 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
         echo '<div class="row">';
         for ($j = $i; $j < $i + 4; $j++) {
             echo '<div class="col">';
-            echo '<div class="card" style="width: 18rem;">';
+            echo '<div class="card" style="width: 10rem;">';
             echo '<img src="data/' . strtolower($dados[$j]['mvpName']) . '.png" class="card-img-top ' . ($dados[$j]['status'] === 'MORTO' ? 'grayscale' : '') . '">';
             echo '<div class="card-body">';
             echo '<h5 class="card-title">' . $dados[$j]['mvpName'] . '</h5>';
