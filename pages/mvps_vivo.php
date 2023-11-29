@@ -7,3 +7,27 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
 }
 ?>
 <h2>MVPs Vivos</h2>
+<div class="row" style="justify-content: center;">
+    <?php
+    $dados = buscarDadosMvpStatus();
+    for ($i = 0; $i < count($dados); $i += 4) {
+        echo '<div class="row" style="text-align: -webkit-center;">';
+        for ($j = $i; $j < $i + 4; $j++) {
+            echo '<div class="col">';
+            echo '<div class="card" style="width: 10rem;margin-bottom: 1em;">';
+            echo '<img src="data/' . strtolower($dados[$j]['mvpName']) . '.png" class="card-img-top ' . ($dados[$j]['status'] === 'MORTO' ? 'grayscale' : '') . '">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title ' . ($dados[$j]['status'] === 'MORTO' ? 'morto' : '') . '">' . $dados[$j]['mvpName'] . '</h5>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
+        echo '</div>';
+    }
+    ?>
+</div>
+<script>
+//    setTimeout(function () {
+//    location.reload();
+//    }, 30000);
+</script>

@@ -129,7 +129,7 @@ body {
     text-align: center;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
+.breadcrumb-item + .breadcrumb-item::before {
     content: var(--bs-breadcrumb-divider, "|") !important;
 }
 
@@ -200,4 +200,22 @@ h2 {
     max-width: 260px;
     margin-top: -70px;
     padding-bottom: 1em;
+}
+
+.grayscale {
+    filter: grayscale(100%);
+}
+
+.card-title {
+    font-size: 15px !important;
+    padding-top: 5px;
+}
+
+.card-body {
+    padding: 5px !important;
+    text-align: center !important;
+}
+
+.morto {
+    color: red;
 }
