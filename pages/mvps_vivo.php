@@ -15,9 +15,17 @@ if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
         for ($j = $i; $j < $i + 4; $j++) {
             echo '<div class="col">';
             echo '<div class="card" style="width: 10rem;margin-bottom: 1em;">';
-            echo '<img src="data/' . strtolower($dados[$j]['mvpName']) . '.png" class="card-img-top ' . ($dados[$j]['status'] === 'MORTO' ? 'grayscale' : '') . '">';
+            if (isset($dados[$j]['status']) && isset($dados[$j]['mvpName'])) {
+                echo '<img src="data/' . strtolower($dados[$j]['mvpName']) . '.png" class="card-img-top ' . ($dados[$j]['status'] === 'MORTO' ? 'grayscale' : '') . '">';
+            } else {
+                // Lidar com o caso em que as chaves não existem
+            }            
             echo '<div class="card-body">';
-            echo '<h5 class="card-title ' . ($dados[$j]['status'] === 'MORTO' ? 'morto' : '') . '">' . $dados[$j]['mvpName'] . '</h5>';
+            if (isset($dados[$j]['status']) && isset($dados[$j]['mvpName'])) {
+                echo '<h5 class="card-title ' . ($dados[$j]['status'] === 'MORTO' ? 'morto' : '') . '">' . $dados[$j]['mvpName'] . '</h5>';
+            } else {
+                // Lidar com o caso em que as chaves não existem
+            }            
             echo '</div>';
             echo '</div>';
             echo '</div>';
